@@ -1,0 +1,486 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Clipchamp News Package</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Step-by-step micro-lesson: edit a KHS Cougar News story package in Clipchamp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800;900&family=Lexend:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: red masthead band like the program rubrics, then a single reading column; a stepper card walks the 8 edit steps, each tied to a rubric row. */
+:root{
+  --red:#b3161b; --red-deep:#7a0f13; --ink:#1c1a1a; --paper:#ffffff; --wash:#f6efed; --line:#e3d8d5;
+  --muted:#6a5f5d; --good:#1f7a43; --good-bg:#e6f4ea; --bad:#b3161b; --bad-bg:#fbe9e9;
+  --vo:#3d5a80; --broll:#c9822b; --bite:#b3161b; --lt:#1c1a1a;
+  --on-red:#ffffff; --card:#ffffff;
+  --f-display:"Montserrat","Arial Black",system-ui,sans-serif;
+  --f-body:"Lexend",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --red:#e0454a; --red-deep:#5e0b0e; --ink:#f1ebea; --paper:#161313; --wash:#221c1c; --line:#3a3030;
+  --muted:#b3a7a5; --good:#5ccb86; --good-bg:#16291e; --bad:#ff7b7f; --bad-bg:#2e1617;
+  --vo:#7fa3d1; --broll:#e0a453; --bite:#e0454a; --lt:#f1ebea; --card:#1d1818; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --red:#e0454a; --red-deep:#5e0b0e; --ink:#f1ebea; --paper:#161313; --wash:#221c1c; --line:#3a3030;
+  --muted:#b3a7a5; --good:#5ccb86; --good-bg:#16291e; --bad:#ff7b7f; --bad-bg:#2e1617;
+  --vo:#7fa3d1; --broll:#e0a453; --bite:#e0454a; --lt:#f1ebea; --card:#1d1818; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.6}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0}
+p{margin:0}
+a{color:var(--red)}
+:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+.eyebrow{font-family:var(--f-display);font-weight:800;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase}
+
+/* masthead */
+.mast{background:linear-gradient(160deg,var(--red-deep),var(--red));color:var(--on-red)}
+.mast .wrap{padding-block:36px 30px;display:grid;gap:10px}
+.mast h1{font-weight:900;font-size:clamp(2rem,6vw,3.3rem);line-height:1.02;text-transform:uppercase;letter-spacing:-.01em}
+.mast .sub{font-size:1.05rem;opacity:.92;max-width:60ch}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.chip{font-family:var(--f-display);font-weight:800;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;padding:6px 10px;border-radius:4px;background:rgba(255,255,255,.16);color:var(--on-red)}
+
+main .wrap{display:grid;gap:44px;padding-block:36px 64px}
+section{display:grid;gap:16px}
+.sec-head{display:grid;gap:4px;border-bottom:3px solid var(--ink);padding-bottom:8px}
+.sec-head .eyebrow{color:var(--red)}
+.sec-head h2{font-size:1.5rem;font-weight:900;text-transform:uppercase}
+.lede{max-width:65ch;color:var(--muted)}
+
+/* timeline diagram */
+.tl-scroll{overflow-x:auto}
+.tl{min-width:520px;display:grid;grid-template-columns:96px 1fr;gap:6px 10px;font-size:.78rem;background:var(--wash);border:1px solid var(--line);border-radius:6px;padding:16px}
+.tl .lab{font-family:var(--f-display);font-weight:800;letter-spacing:.06em;text-transform:uppercase;font-size:.66rem;align-self:center;color:var(--muted)}
+.lane{position:relative;height:34px}
+.ruler{position:relative;height:18px;font-family:var(--f-mono);font-size:.7rem;color:var(--muted);border-bottom:1px solid var(--line)}
+.ruler span{position:absolute;transform:translateX(-50%)}
+.ruler span:first-child{transform:none}.ruler span:last-child{transform:translateX(-100%)}
+.blk{position:absolute;top:0;bottom:0;border-radius:4px;display:flex;align-items:center;justify-content:center;font-weight:600;color:#fff;font-size:.72rem;white-space:nowrap;overflow:hidden;padding:0 6px}
+.b-broll{background:var(--broll);color:#1c1a1a}
+.b-bite{background:var(--bite)}
+.b-vo{background:var(--vo)}
+.b-nat{background:repeating-linear-gradient(90deg,var(--broll) 0 3px,transparent 3px 6px);opacity:.75;color:var(--ink);font-weight:500}
+.b-lt{background:var(--lt);color:var(--paper)}
+.tl-note{font-size:.85rem;color:var(--muted)}
+.legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px 18px;font-size:.9rem}
+.legend div{display:flex;gap:10px;align-items:flex-start}
+.sw{flex:0 0 14px;height:14px;border-radius:3px;margin-top:5px}
+
+/* need list */
+.need{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.need div{border-top:3px solid var(--red);padding-top:10px;display:grid;gap:4px}
+.need b{font-family:var(--f-display);font-weight:800;font-size:.9rem;text-transform:uppercase;letter-spacing:.03em}
+.need span{color:var(--muted);font-size:.92rem}
+
+/* stepper */
+.progress{display:flex;gap:6px;flex-wrap:wrap}
+.pip{flex:1 1 34px;min-width:34px;height:40px;border:2px solid var(--line);background:var(--card);color:var(--ink);border-radius:4px;font-family:var(--f-mono);font-size:.85rem;cursor:pointer}
+.pip.done{background:var(--wash);border-color:var(--ink)}
+.pip.on{background:var(--red);border-color:var(--red);color:#fff}
+.stepcard{border:2px solid var(--ink);border-radius:6px;background:var(--card);overflow:hidden}
+.step-top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline;padding:18px 20px 0}
+.step-top .eyebrow{color:var(--red)}
+.step-top .time{font-family:var(--f-mono);font-size:.8rem;color:var(--muted)}
+.step-body{padding:8px 20px 20px;display:grid;gap:16px}
+.step-body h3{font-size:1.45rem;font-weight:900;text-transform:uppercase;line-height:1.1}
+.why{max-width:65ch}
+ol.do{margin:0;padding-left:1.4em;display:grid;gap:8px;max-width:68ch}
+ol.do li::marker{font-family:var(--f-mono);color:var(--red);font-weight:500}
+.ui{font-family:var(--f-display);font-weight:800;font-size:.86em;letter-spacing:.01em;background:var(--wash);border:1px solid var(--line);border-radius:3px;padding:0 5px;white-space:nowrap}
+kbd{font-family:var(--f-mono);font-size:.82em;border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 5px;background:var(--wash)}
+.rubric{display:grid;gap:4px;background:var(--wash);border-left:5px solid var(--red);padding:12px 14px;border-radius:0 4px 4px 0;font-size:.93rem}
+.rubric .eyebrow{color:var(--red);font-size:.66rem}
+.tip{font-size:.92rem;color:var(--muted);max-width:68ch}
+.tip b{color:var(--ink)}
+
+.qc{display:grid;gap:10px;border-top:1px dashed var(--line);padding-top:14px}
+.qc .eyebrow{color:var(--muted);font-size:.66rem}
+.qc p.q{font-weight:600}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;font:inherit;font-size:.95rem;padding:10px 12px;border:2px solid var(--line);border-radius:4px;background:var(--paper);color:var(--ink);cursor:pointer}
+.opt:hover{border-color:var(--ink)}
+.opt.right{border-color:var(--good);background:var(--good-bg)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-bg)}
+.opt[disabled]{cursor:default}
+.fb{font-size:.93rem;padding:10px 12px;border-radius:4px}
+.fb.ok{background:var(--good-bg);color:var(--ink)}
+.fb.no{background:var(--bad-bg);color:var(--ink)}
+.fb b{font-family:var(--f-display);font-weight:800}
+
+.nav{display:flex;justify-content:space-between;gap:10px;padding:14px 20px;border-top:2px solid var(--ink);background:var(--wash)}
+.btn{font-family:var(--f-display);font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:.78rem;padding:12px 18px;border-radius:4px;border:2px solid var(--ink);background:var(--paper);color:var(--ink);cursor:pointer}
+.btn.primary{background:var(--red);border-color:var(--red);color:#fff}
+.btn[disabled]{opacity:.35;cursor:default}
+
+/* shortcuts */
+.keys-scroll{overflow-x:auto}
+table.keys{border-collapse:collapse;width:100%;min-width:420px;font-size:.93rem}
+.keys th,.keys td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)}
+.keys th{font-family:var(--f-display);font-weight:800;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+
+/* checklist */
+.check{display:grid;gap:4px;border:2px solid var(--ink);border-radius:6px;padding:8px 16px;background:var(--card)}
+.check label{display:flex;gap:12px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.check label:last-of-type{border-bottom:0}
+.check input{width:20px;height:20px;margin-top:3px;accent-color:var(--red);flex:0 0 20px}
+.check small{display:block;color:var(--muted)}
+.count{font-family:var(--f-mono);font-size:.9rem}
+.ready{font-family:var(--f-display);font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--good)}
+
+footer{border-top:3px solid var(--ink)}
+footer .wrap{padding-block:22px 40px;display:grid;gap:8px;font-size:.85rem;color:var(--muted)}
+footer ul{margin:0;padding-left:1.2em;display:grid;gap:3px}
+@media (prefers-reduced-motion:no-preference){.stepcard{transition:box-shadow .2s}.opt{transition:border-color .15s,background .15s}}
+</style>
+</head>
+<body>
+<!-- edit-lab-link --><nav aria-label="Video Edit Lab" style="background:#5e0f12;padding:7px 16px"><a href="../index.html" style="color:#fff;font:600 13px Lexend,system-ui,sans-serif;text-decoration:none">&larr; Video Edit Lab</a></nav>
+
+<header class="mast">
+  <div class="wrap">
+    <div class="eyebrow">KHS Cougar News · 04 Story Packages</div>
+    <h1>Edit a news package in Clipchamp</h1>
+    <p class="sub">Turn your VO, sound bite and b-roll into a finished story that scores a 4 on every editing and audio row of the News Story Rubric.</p>
+    <div class="meta"><span class="chip">8 steps</span><span class="chip">About 9 minutes</span><span class="chip">Rubric: Audio · Edit + lower third · Timing</span></div>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+<section aria-labelledby="s-build">
+  <div class="sec-head"><span class="eyebrow">The goal</span><h2 id="s-build">What you're building</h2></div>
+  <p class="lede">Every package has the same layers stacked on the Clipchamp timeline. Here's a :30 example. Your times will change, but the layers won't.</p>
+  <div class="tl-scroll">
+    <div class="tl" role="img" aria-label="Timeline of a 30-second package. Video track: b-roll from 0 to 12 seconds, sound bite from 12 to 22, b-roll from 22 to 30. Nat sound plays under both b-roll sections. VO plays from 0 to 12 and 22 to 30. Lower third shows from 13 to 17 seconds.">
+      <span></span>
+      <div class="ruler"><span style="left:0">0:00</span><span style="left:33.33%">0:10</span><span style="left:66.66%">0:20</span><span style="left:100%">0:30</span></div>
+      <span class="lab">Text</span>
+      <div class="lane"><div class="blk b-lt" style="left:43.33%;width:13.33%">Lower third</div></div>
+      <span class="lab">Video</span>
+      <div class="lane"><div class="blk b-broll" style="left:0;width:39.6%">B-roll</div><div class="blk b-bite" style="left:40%;width:33%">Sound bite</div><div class="blk b-broll" style="left:73.33%;width:26.67%">B-roll</div></div>
+      <span class="lab">Nat sound</span>
+      <div class="lane"><div class="blk b-nat" style="left:0;width:39.6%">low, never muted</div><div class="blk b-nat" style="left:73.33%;width:26.67%">low</div></div>
+      <span class="lab">VO</span>
+      <div class="lane"><div class="blk b-vo" style="left:0;width:39.6%">VO part 1</div><div class="blk b-vo" style="left:73.33%;width:26.67%">VO part 2</div></div>
+    </div>
+  </div>
+  <div class="legend">
+    <div><span class="sw" style="background:var(--vo)"></span><span><b>VO</b> is your recorded script. It sets the timing for everything.</span></div>
+    <div><span class="sw" style="background:var(--broll)"></span><span><b>B-roll</b> covers the VO. Its own audio is your <b>nat sound</b>.</span></div>
+    <div><span class="sw" style="background:var(--bite)"></span><span><b>Sound bite</b>: one complete thought, 8 to 12 seconds.</span></div>
+    <div><span class="sw" style="background:var(--lt)"></span><span><b>Lower third</b>: name and title, on screen for 4 seconds.</span></div>
+  </div>
+  <p class="tl-note">The VO pauses while the bite plays. Nothing plays under the bite.</p>
+</section>
+
+<section aria-labelledby="s-need">
+  <div class="sec-head"><span class="eyebrow">Before you open Clipchamp</span><h2 id="s-need">Have these ready</h2></div>
+  <div class="need">
+    <div><b>Your VO</b><span>Recorded from your approved script, read out loud and timed. You can also record it in Clipchamp in Step 2.</span></div>
+    <div><b>Your sound bite</b><span>The interview clip, plus the speaker's name and title as you confirmed them with that person.</span></div>
+    <div><b>Your b-roll</b><span>Wide, medium and tight shots of real action. Steady, in focus, held.</span></div>
+    <div><b>Headphones</b><span>You can't judge audio levels through laptop speakers.</span></div>
+  </div>
+</section>
+
+<section aria-labelledby="s-steps">
+  <div class="sec-head"><span class="eyebrow">Step by step</span><h2 id="s-steps">Build the package</h2></div>
+  <p class="lede">Work through each step in Clipchamp, then answer the quick check before you move on.</p>
+  <div class="progress" id="pips" role="tablist" aria-label="Steps"></div>
+  <article class="stepcard" id="card" aria-live="polite"></article>
+</section>
+
+<section aria-labelledby="s-keys">
+  <div class="sec-head"><span class="eyebrow">Keep this open</span><h2 id="s-keys">Shortcuts you'll use</h2></div>
+  <div class="keys-scroll">
+  <table class="keys">
+    <thead><tr><th>Action</th><th>Windows</th><th>Mac</th></tr></thead>
+    <tbody>
+      <tr><td>Split the selected clip at the playhead</td><td><kbd>S</kbd></td><td><kbd>S</kbd></td></tr>
+      <tr><td>Play or pause</td><td><kbd>Space</kbd></td><td><kbd>Space</kbd></td></tr>
+      <tr><td>Delete the selected clip</td><td><kbd>Delete</kbd> or <kbd>Backspace</kbd></td><td><kbd>Delete</kbd></td></tr>
+      <tr><td>Undo</td><td><kbd>Ctrl</kbd> + <kbd>Z</kbd></td><td><kbd>Cmd</kbd> + <kbd>Z</kbd></td></tr>
+      <tr><td>Zoom the timeline in / out</td><td><kbd>Ctrl</kbd> + <kbd>=</kbd> / <kbd>-</kbd></td><td><kbd>Cmd</kbd> + <kbd>=</kbd> / <kbd>-</kbd></td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section aria-labelledby="s-check">
+  <div class="sec-head"><span class="eyebrow">Before you export</span><h2 id="s-check">Final watch checklist</h2></div>
+  <p class="lede">Watch the whole package once, start to finish, in headphones. Check each box only if it's true. One more careful watch is often worth points.</p>
+  <div class="check" id="checklist"></div>
+  <p class="count" id="count"></p>
+</section>
+
+</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="eyebrow">Sources</span>
+    <p>Clipchamp steps are based on Microsoft's Clipchamp support articles. Clipchamp updates its layout often, so a button may move. Look for the same name nearby.</p>
+    <ul>
+      <li><a href="https://support.microsoft.com/en-us/clipchamp/how-to-add-voiceovers-to-videos" target="_blank" rel="noopener">How to add voiceovers to videos</a></li>
+      <li><a href="https://support.microsoft.com/en-us/clipchamp/how-to-split-or-cut-videos-and-audio-assets" target="_blank" rel="noopener">How to split or cut video and audio clips</a></li>
+      <li><a href="https://support.microsoft.com/en-us/clipchamp/how-to-change-the-volume-of-a-video-or-audio-clip" target="_blank" rel="noopener">How to change the volume of a video or audio clip</a></li>
+      <li><a href="https://support.microsoft.com/en-us/clipchamp/how-to-add-text-and-titles-to-a-video" target="_blank" rel="noopener">How to add titles and text to a video</a></li>
+      <li><a href="https://support.microsoft.com/en-us/clipchamp/how-to-remove-gaps-on-the-timeline" target="_blank" rel="noopener">How to remove gaps from your video editing project</a></li>
+      <li><a href="https://support.microsoft.com/en-us/clipchamp/exporting-and-saving-a-video-in-clipchamp" target="_blank" rel="noopener">Exporting and saving a video in Clipchamp</a></li>
+      <li><a href="https://support.microsoft.com/en-us/clipchamp/keyboard-shortcuts-for-clipchamp" target="_blank" rel="noopener">Keyboard shortcuts for Clipchamp</a></li>
+    </ul>
+    <p>KHS Cougar News · 04 Story Packages</p>
+  </div>
+</footer>
+
+<script>
+const STEPS = [
+{
+  title:"Start the project", time:"~1 min",
+  why:"Get every file into Clipchamp before you edit, so you never stop mid-edit to hunt for a clip.",
+  do:[
+    'Open Clipchamp and select <span class="ui">Create a new video</span>.',
+    'Click the project name at the top (it starts as <span class="ui">Untitled video</span>) and rename it with your last name and story topic.',
+    'Leave the frame at 16:9 widescreen, the standard for broadcast.',
+    'Click <span class="ui">Import media</span> and add your VO, your interview clip and all of your b-roll. They appear in <span class="ui">Your media</span>.'
+  ],
+  rubric:null,
+  tip:'<b>Tip:</b> Rename b-roll files with the shot size before you import (<i>W_lab</i>, <i>M_lab</i>, <i>T_lab</i>). You\'ll find sequences much faster.',
+  q:"Why import every file before you start cutting?",
+  opts:["Clipchamp can't import files after editing starts","So you can edit without stopping to find clips","Imported files export at a higher resolution"],
+  a:1,
+  fb:"Everything you need is waiting in Your media, so your edit doesn't stall."
+},
+{
+  title:"Lay down the VO first", time:"~1 min",
+  why:"The VO is the spine of the package. Pictures are matched to words, so the words go on the timeline first.",
+  do:[
+    'Drag your VO file from <span class="ui">Your media</span> onto the timeline. Line its start up with 0:00.',
+    'No VO file yet? Select <span class="ui">Record &amp; create</span>, then <span class="ui">Audio</span>. Allow the microphone, choose your mic, click the red microphone button, read your script, then click <span class="ui">Stop</span>.',
+    'Listen back. Choose <span class="ui">Retake recording</span> if you stumbled, or <span class="ui">Save and edit</span> to keep it. The take lands on the timeline.'
+  ],
+  rubric:{row:"Timing · :30 · :45 · :60",text:"Within 2 seconds of the target length. Script read out loud and timed."},
+  tip:'<b>Tip:</b> Record in a quiet room with the mic close. Re-recording a clean VO is faster than fixing a noisy one.',
+  q:"Why does the VO go on the timeline before the b-roll?",
+  opts:["The VO sets the timing, and pictures are matched to its words","Clipchamp only allows one audio track after video is added","VO always has to be the loudest clip"],
+  a:0,
+  fb:"You cut pictures to the words, so the words come first."
+},
+{
+  title:"Place the sound bite", time:"~1.5 min",
+  why:"The bite is the one moment the audience hears from a real person. It has to be a complete thought that ends cleanly.",
+  do:[
+    'Find the spot in your VO where the bite plays. Click the VO clip, park the playhead there and press <kbd>S</kbd> to split it.',
+    'Drag the second half of the VO to the right to open a space for the bite.',
+    'Drag your interview clip onto the video track in that space.',
+    'Trim the bite: park the playhead where the thought starts, select the clip and press <kbd>S</kbd>. Delete the extra. Do the same at the outcue, right after the last word.',
+    'Check the length. The bite should run 8 to 12 seconds.'
+  ],
+  rubric:{row:"Sound bite · 8–12 seconds",text:"One complete thought, 8 to 12 seconds. A feeling or opinion, not a fact. Ends on a clean outcue."},
+  tip:'<b>Tip:</b> Zoom in on the timeline (<kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>=</kbd>) to split exactly between words.',
+  q:"Your bite runs 15 seconds and the speaker states the date of the event in the first 4 seconds. What's the best fix?",
+  opts:["Speed the clip up so it fits in 12 seconds","Cut the date line, keep the opinion, and end on a clean outcue","Leave it. A long bite shows more of the interview"],
+  a:1,
+  fb:"Facts belong in your VO. The bite keeps the feeling or opinion, 8 to 12 seconds, ending cleanly."
+},
+{
+  title:"Cover the VO with b-roll", time:"~1.5 min",
+  why:"Pictures match words. When the VO names something, the viewer should be looking at it.",
+  do:[
+    'Drag b-roll onto the video track over each VO section, in the order your script calls for it.',
+    'Play a shot, find its steadiest part and use <kbd>S</kbd> to cut it to 3 to 4 seconds. Delete the rest.',
+    'Build sequences: a wide shot to set the scene, a medium to show the action, a tight to show detail or a face.',
+    'Use each shot once. No repeats.',
+    'Make sure the b-roll covers the full VO, with no black frames.'
+  ],
+  rubric:{row:"Edit + lower third · Pictures match words",text:"Pictures match words. Shots stay up 3 to 4 seconds. Straight cuts, no music, no repeats."},
+  tip:'<b>Tip:</b> Read your script line by line and ask: does the shot under this line show what I\'m saying?',
+  q:"The VO says, \"The robotics team tested its new arm Tuesday.\" Which shot goes under that line?",
+  opts:["A wide shot of the school's front entrance","A medium shot of students running the arm at the test table","A tight shot of the team's trophy case"],
+  a:1,
+  fb:"The words name the team testing the arm, so the picture shows the team testing the arm."
+},
+{
+  title:"Mix the audio", time:"~1.5 min",
+  why:"Voices carry the story. Nat sound makes it feel real. Both need to be heard, at the right level.",
+  do:[
+    'Click a b-roll clip, then open the <span class="ui">Audio</span> tab in the property panel on the right.',
+    'Drag the <span class="ui">volume</span> slider left until the nat sound sits under the VO. You can still hear it, but the VO is clearly on top. Do this for every b-roll clip.',
+    'Never drag nat sound to 0, and don\'t detach and delete it.',
+    'Click the VO and the bite and adjust them the same way so the voices sound equally loud from VO to bite. The slider goes up to 200%.',
+    'Listen in headphones. Crackle or fuzz means a clip is too loud, so lower it.'
+  ],
+  rubric:{row:"Audio · Voices −12 to −6 dB",text:"Voices are clear and peak at −12 to −6 dB. Nat sound plays under the b-roll, never muted."},
+  tip:'<b>Heads up:</b> Clipchamp\'s volume slider shows a percentage, not decibels. Use your ears in Clipchamp, then check the −12 to −6 dB peak the way your class does.',
+  q:"Your b-roll has loud hallway noise under the VO. What should you do?",
+  opts:["Mute the b-roll audio so the VO is clear","Detach the audio and delete it","Lower the b-roll volume so the noise sits under the VO"],
+  a:2,
+  fb:"Nat sound stays, just lower. Muting it costs points on the Audio row."
+},
+{
+  title:"Add the lower third", time:"~1 min",
+  why:"The lower third tells viewers who is talking. A misspelled name is a factual error on air.",
+  do:[
+    'Open the <span class="ui">Text</span> tab in the left toolbar and choose a simple, plain text style. Skip anything marked with a diamond, which is a premium feature.',
+    'Drag the text onto the timeline on a track above the sound bite.',
+    'Start it 1 second after the speaker appears. Drag its trim handles so it stays up for 4 seconds.',
+    'With the text selected, open the <span class="ui">Text</span> tab in the property panel. Type the name and title exactly as you confirmed them.',
+    'In the preview, drag the text to the lower part of the frame, clear of the speaker\'s face.'
+  ],
+  rubric:{row:"Edit + lower third",text:"Lower third is spelled right, starts 1 second in and holds 4 seconds."},
+  tip:'<b>Tip:</b> Copy the name and title from your notes instead of retyping them from memory.',
+  q:"The bite starts at 0:12. When should the lower third be on screen?",
+  opts:["0:12 to 0:16","0:13 to 0:17","0:12 to 0:22, the whole bite"],
+  a:1,
+  fb:"Start 1 second in (0:13) and hold for 4 seconds (0:17)."
+},
+{
+  title:"Clean up the edit", time:"~1 min",
+  why:"Small slips like a gap, a fade or a repeated shot each cost a point. Catch them before your producer does.",
+  do:[
+    'Look for gaps on the timeline. Hover over a gap and click <span class="ui">Delete this gap</span>, or right-click a tiny gap and choose it there.',
+    'Straight cuts only. Remove any transitions or music.',
+    'Play from 0:00 while you read your script. Fix any spot where the picture doesn\'t match the words.',
+    'Check the total run time. It must be within 2 seconds of your target (:30, :45 or :60).'
+  ],
+  rubric:{row:"Timing + Edit",text:"Within 2 seconds of the target length. Straight cuts, no music, no repeats."},
+  tip:'<b>Tip:</b> Too long? Trim b-roll and tighten VO pauses before you cut the bite.',
+  q:"Your target is :45 and the package runs 0:49. Where does that land on the Timing row?",
+  opts:["4, since it's close enough","3, since it's 3 to 5 seconds off. Trim it","1, since it's more than 10 seconds off"],
+  a:1,
+  fb:"4 seconds off is a 3. Trim 2 or more seconds to get within 2 seconds of :45 for a 4."
+},
+{
+  title:"Export", time:"~1 min",
+  why:"Export a full-quality file and watch it once more before you turn it in.",
+  do:[
+    'Remove anything marked with a diamond (premium) so the export isn\'t blocked.',
+    'Click <span class="ui">Export</span> in the top-right corner of the editor.',
+    'Choose <span class="ui">1080p</span>. Wait for the progress bar to finish.',
+    'The MP4 saves to your computer, usually in Downloads.',
+    'Watch the exported file start to finish before you turn it in.'
+  ],
+  rubric:{row:"Deadlines + respect",text:"Drafts on time Tue. Final by Wed., 7:30 a.m."},
+  tip:'<b>Tip:</b> If Clipchamp asks about gaps when you click Export, choose to remove them.',
+  q:"Which export setting do you choose for your final package?",
+  opts:["480p","1080p","GIF"],
+  a:1,
+  fb:"1080p is HD. 480p is only for quick drafts."
+}
+];
+
+const CHECKS = [
+  ["Run time is within 2 seconds of my target.","Timing"],
+  ["The bite is one complete thought, 8 to 12 seconds, with a clean outcue.","Sound bite"],
+  ["B-roll covers all of the VO. No black frames or gaps.","B-roll"],
+  ["Every shot stays up 3 to 4 seconds, and no shot repeats.","Edit"],
+  ["The pictures match the words the whole way through.","Edit"],
+  ["Nat sound plays under all b-roll, lower than the VO, never muted.","Audio"],
+  ["Voices are clear and even from VO to bite, with no crackle.","Audio"],
+  ["Lower third is spelled right, starts 1 second in and holds 4 seconds.","Edit + lower third"],
+  ["Straight cuts only. No transitions, no music.","Edit"],
+  ["Exported at 1080p, and I watched the exported file.","Export"]
+];
+
+const store = {
+  get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},
+  set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+};
+let cur = 0;
+const answered = store.get("ccnp-answered") || {};
+const pips = document.getElementById("pips");
+const card = document.getElementById("card");
+
+function renderPips(){
+  pips.innerHTML = "";
+  STEPS.forEach((s,i)=>{
+    const b = document.createElement("button");
+    b.className = "pip" + (i===cur?" on":"") + (answered[i]!==undefined && i!==cur?" done":"");
+    b.textContent = String(i+1).padStart(2,"0");
+    b.setAttribute("role","tab");
+    b.setAttribute("aria-selected", i===cur);
+    b.setAttribute("aria-label","Step "+(i+1)+": "+s.title);
+    b.onclick = ()=>{cur=i;render();};
+    pips.appendChild(b);
+  });
+}
+
+function render(){
+  const s = STEPS[cur];
+  renderPips();
+  card.innerHTML = `
+    <div class="step-top"><span class="eyebrow">Step ${cur+1} of ${STEPS.length}</span><span class="time">${s.time}</span></div>
+    <div class="step-body">
+      <h3>${s.title}</h3>
+      <p class="why">${s.why}</p>
+      <ol class="do">${s.do.map(d=>`<li>${d}</li>`).join("")}</ol>
+      ${s.rubric?`<div class="rubric"><span class="eyebrow">Rubric · ${s.rubric.row}</span><span>A 4 looks like: ${s.rubric.text}</span></div>`:""}
+      <p class="tip">${s.tip}</p>
+      <div class="qc">
+        <span class="eyebrow">Quick check</span>
+        <p class="q">${s.q}</p>
+        <div class="opts" id="opts"></div>
+        <div id="fb"></div>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="btn" id="prev" ${cur===0?"disabled":""}>Back</button>
+      <button class="btn primary" id="next">${cur===STEPS.length-1?"Go to checklist":"Next step"}</button>
+    </div>`;
+  const opts = card.querySelector("#opts");
+  s.opts.forEach((o,i)=>{
+    const b = document.createElement("button");
+    b.className="opt"; b.textContent=o;
+    b.onclick=()=>answer(i);
+    opts.appendChild(b);
+  });
+  if(answered[cur]!==undefined) showAnswer(answered[cur]);
+  card.querySelector("#prev").onclick=()=>{if(cur>0){cur--;render();card.scrollIntoView({block:"start"});}};
+  card.querySelector("#next").onclick=()=>{
+    if(cur<STEPS.length-1){cur++;render();card.scrollIntoView({block:"start"});}
+    else document.getElementById("s-check").scrollIntoView({block:"start"});
+  };
+}
+
+function answer(i){
+  answered[cur]=i; store.set("ccnp-answered",answered);
+  showAnswer(i); renderPips();
+}
+function showAnswer(i){
+  const s = STEPS[cur];
+  const btns = card.querySelectorAll(".opt");
+  const fb = card.querySelector("#fb");
+  if(i===s.a){
+    btns.forEach((b,j)=>{b.disabled=true; if(j===s.a) b.classList.add("right");});
+    fb.className="fb ok"; fb.innerHTML=`<b>Right.</b> ${s.fb}`;
+  } else {
+    btns.forEach((b,j)=>{b.classList.remove("wrong"); if(j===i) b.classList.add("wrong");});
+    fb.className="fb no"; fb.innerHTML=`<b>Not quite.</b> Reread the steps above and try again.`;
+  }
+}
+
+function renderChecklist(){
+  const saved = store.get("ccnp-checks") || [];
+  const box = document.getElementById("checklist");
+  box.innerHTML = CHECKS.map((c,i)=>`<label for="chk${i}"><input type="checkbox" id="chk${i}" ${saved[i]?"checked":""}><span>${c[0]}<small>${c[1]}</small></span></label>`).join("");
+  const upd = ()=>{
+    const vals = CHECKS.map((_,i)=>document.getElementById("chk"+i).checked);
+    store.set("ccnp-checks",vals);
+    const n = vals.filter(Boolean).length;
+    const el = document.getElementById("count");
+    el.innerHTML = n===CHECKS.length ? `<span class="ready">All ${n} checked. Ready to turn in.</span>` : `${n} of ${CHECKS.length} checked`;
+  };
+  box.addEventListener("change",upd); upd();
+}
+
+render(); renderChecklist();
+</script>
+</body>
+</html>

@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Edit a MOTS Package in Canva</title>
+<meta name="description" content="KHS Cougar News micro-lesson: build a man-on-the-street (MOTS) package in Canva, step by step, checked against the MOTS Rubric.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800;900&family=Lexend:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#c0262d; --red-dark:#7d1418; --ink:#1c1c1e; --muted:#5b5b60;
+  --bg:#f7f3f1; --card:#ffffff; --soft:#f9e9e8; --line:#e4dcda;
+  --ok:#1f7a4a; --ok-bg:#e5f4ec; --bad:#a3231f; --bad-bg:#fbe7e6;
+  --track-ans:#c0262d; --track-ans2:#8e1c22; --track-tag:#3a6fb0; --track-lt:#d9902b;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#f1eeed; --muted:#b5afad; --bg:#141213; --card:#1f1c1d; --soft:#3a1f20; --line:#3a3536;
+    --ok:#6fd39c; --ok-bg:#17301f; --bad:#ff8a84; --bad-bg:#3a1a19;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#f1eeed; --muted:#b5afad; --bg:#141213; --card:#1f1c1d; --soft:#3a1f20; --line:#3a3536;
+  --ok:#6fd39c; --ok-bg:#17301f; --bad:#ff8a84; --bad-bg:#3a1a19;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:Lexend,system-ui,sans-serif;font-size:17px;line-height:1.55}
+header{background:linear-gradient(180deg,var(--red-dark),var(--red));color:#fff;padding:28px 16px 22px}
+.wrap{max-width:820px;margin:0 auto;padding:0 16px}
+header .wrap{padding:0}
+.kicker{font-family:Montserrat,sans-serif;font-weight:800;letter-spacing:.14em;font-size:12px;opacity:.9;text-transform:uppercase}
+h1{font-family:Montserrat,sans-serif;font-weight:900;font-size:clamp(28px,6vw,44px);line-height:1.05;margin:6px 0 8px;text-transform:uppercase}
+header p{margin:0;opacity:.92}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:3px 12px;font-size:13px}
+.progress{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line)}
+.progress .wrap{display:flex;align-items:center;gap:12px;padding-top:10px;padding-bottom:10px}
+.bar{flex:1;height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar span{display:block;height:100%;width:0;background:var(--red);transition:width .3s}
+.progress small{color:var(--muted);white-space:nowrap;font-size:13px}
+main{padding:22px 0 60px}
+.step{display:none;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 20px;box-shadow:0 1px 0 rgba(0,0,0,.03)}
+.step.active{display:block}
+.step h2{font-family:Montserrat,sans-serif;font-weight:800;font-size:22px;margin:4px 0 10px}
+.num{font-family:Montserrat,sans-serif;font-weight:900;color:var(--red);font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+ol.do{padding-left:22px;margin:10px 0}
+ol.do li{margin:6px 0}
+.ui{font-weight:600;background:var(--soft);border-radius:5px;padding:0 5px;white-space:nowrap}
+kbd{font-family:ui-monospace,Menlo,monospace;font-size:14px;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 6px;background:var(--bg)}
+.rubric{border-left:4px solid var(--red);background:var(--soft);padding:10px 14px;border-radius:0 10px 10px 0;margin:14px 0;font-size:15px}
+.rubric b{font-family:Montserrat,sans-serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:2px}
+.tip{border:1px dashed var(--line);border-radius:10px;padding:10px 14px;font-size:15px;color:var(--muted);margin:12px 0}
+.check{margin-top:18px;border-top:1px solid var(--line);padding-top:14px}
+.check p.q{font-weight:600;margin:0 0 8px}
+.opts{display:grid;gap:8px}
+.opts button{all:unset;cursor:pointer;border:1px solid var(--line);border-radius:10px;padding:10px 14px;background:var(--bg);font-size:15px}
+.opts button:hover,.opts button:focus-visible{border-color:var(--red);outline:none}
+.opts button.right{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+.opts button.wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+.fb{margin-top:8px;font-size:15px;min-height:1em}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:22px}
+.btn{all:unset;cursor:pointer;font-family:Montserrat,sans-serif;font-weight:800;font-size:14px;letter-spacing:.04em;padding:11px 18px;border-radius:10px;background:var(--red);color:#fff;text-align:center}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn:focus-visible{outline:3px solid var(--track-lt);outline-offset:2px}
+.btn[disabled]{opacity:.4;pointer-events:none}
+.cl label{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line);font-size:15px}
+.cl input{width:20px;height:20px;accent-color:var(--red);margin-top:2px;flex:none}
+.cl .row{font-family:Montserrat,sans-serif;font-weight:800;font-size:11px;letter-spacing:.1em;color:var(--red);text-transform:uppercase;display:block}
+figure{margin:16px 0;overflow-x:auto}
+figure svg{width:100%;min-width:560px;height:auto;display:block}
+figcaption{font-size:13px;color:var(--muted);margin-top:6px}
+.score{font-family:Montserrat,sans-serif;font-weight:900;font-size:28px;color:var(--red)}
+footer{color:var(--muted);font-size:13px;text-align:center;padding:0 16px 30px}
+.theme{all:unset;cursor:pointer;font-size:13px;color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:3px 10px;float:right}
+</style>
+</head>
+<body>
+<!-- edit-lab-link --><nav aria-label="Video Edit Lab" style="background:#5e0f12;padding:7px 16px"><a href="../index.html" style="color:#fff;font:600 13px Lexend,system-ui,sans-serif;text-decoration:none">&larr; Video Edit Lab</a></nav>
+<header>
+  <div class="wrap">
+    <button class="theme" id="themeBtn" type="button" aria-label="Toggle light or dark theme">◐ Theme</button>
+    <div class="kicker">KHS Cougar News · 04 Story Packages</div>
+    <h1>Edit a MOTS Package in Canva</h1>
+    <p>Turn your man-on-the-street answers into a tight, even, well-ordered package, one step at a time.</p>
+    <div class="meta"><span class="chip">About 9 minutes</span><span class="chip">8 steps + final check</span><span class="chip">Built on the MOTS Rubric</span></div>
+  </div>
+</header>
+
+<div class="progress"><div class="wrap"><div class="bar"><span id="barFill"></span></div><small id="stepLabel">Start</small></div></div>
+
+<main class="wrap">
+
+<!-- 0 START -->
+<section class="step" data-title="Start">
+  <div class="num">Before you open Canva</div>
+  <h2>Have these ready</h2>
+  <p>A MOTS lives or dies in the field. Don't open Canva until you can check every box.</p>
+  <div class="cl" data-store="ready">
+    <label><input type="checkbox"><span><span class="row">The question</span>One <b>open-ended</b> question, tested on a classmate first. You'll put it in your turn-in.</span></label>
+    <label><input type="checkbox"><span><span class="row">Mix of people</span><b>5 to 7 usable answers</b>: different grades, at least <b>one staff member</b>, more than one friend group.</span></label>
+    <label><input type="checkbox"><span><span class="row">Names</span>Each person's <b>name and grade or title</b>, spelled out by them, written in your notes.</span></label>
+    <label><input type="checkbox"><span><span class="row">Shots</span>Each answer is a steady, in-focus <b>medium close-up at eye level</b>, with the person looking at the interviewer.</span></label>
+    <label><input type="checkbox"><span><span class="row">Tag line</span>Your show's <b>tag line</b> (the closing sign-off) is recorded as its own clip.</span></label>
+    <label><input type="checkbox"><span><span class="row">Permission</span>You asked every person before you recorded them.</span></label>
+  </div>
+  <div class="tip">Use headphones for the whole edit. You can't judge audio through laptop speakers.</div>
+</section>
+
+<!-- 1 PROJECT -->
+<section class="step" data-title="Step 1">
+  <div class="num">Step 1 of 8</div>
+  <h2>Start a blank video project</h2>
+  <ol class="do">
+    <li>On the Canva home screen, select <span class="ui">Video</span>. If you don't see it, select <span class="ui">Create</span>, then <span class="ui">Videos</span>.</li>
+    <li>Choose a <b>blank</b> video design. Skip the templates. Templates add effects and title cards, and the rubric doesn't allow them.</li>
+    <li>Check the size: widescreen <b>16:9</b> (1920 × 1080) to match the broadcast.</li>
+    <li>Rename the project with your slug, like <b>MOTS-lunch-question</b>, so your producer can find it.</li>
+  </ol>
+  <div class="tip">The panels you'll use are down the left side, including <span class="ui">Uploads</span> and <span class="ui">Text</span>. The timeline is across the bottom. If you see page thumbnails instead of a timeline, select the pencil icon on a page to switch to the <span class="ui">Video Timeline</span>. Canva updates often, so if a label looks a little different, look for the closest match.</div>
+</section>
+
+<!-- 2 UPLOAD -->
+<section class="step" data-title="Step 2">
+  <div class="num">Step 2 of 8</div>
+  <h2>Upload your answers and tag line</h2>
+  <ol class="do">
+    <li>Open <span class="ui">Uploads</span>, select <span class="ui">Upload files</span> and upload from your device: every <b>answer clip</b> and your <b>tag line</b> clip.</li>
+    <li>Wait until every upload finishes before you start building.</li>
+    <li>Watch each clip once. Note who is <b>framed on the left</b> and who is <b>framed on the right</b>. You'll need that in Step 4.</li>
+  </ol>
+  <div class="rubric"><b>Rubric · Mix of people</b>5 to 7 usable answers. Different grades, 1 or more staff members, more than one background.</div>
+  <div class="check" data-answer="b">
+    <p class="q">Quick check: You watch your clips and only 4 answers are usable. What should you do?</p>
+    <div class="opts">
+      <button data-k="a">Use all 4 and make each one longer</button>
+      <button data-k="b">Go back out and get more answers before you edit</button>
+      <button data-k="c">Use the same person twice with two different answers</button>
+    </div>
+    <div class="fb" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- 3 TRIM -->
+<section class="step" data-title="Step 3">
+  <div class="num">Step 3 of 8</div>
+  <h2>Trim every answer to 3–8 seconds</h2>
+  <ol class="do">
+    <li>Drag one answer onto the timeline.</li>
+    <li><b>Trim</b> it: select the clip, then drag its left or right handle. For exact cuts, zoom the timeline by holding <kbd>Ctrl</kbd> (Windows) or <kbd>⌘</kbd> (Mac) and scrolling.</li>
+    <li>Start on the <b>first real word</b>. Cut "um," "so," "like" and laughs before the answer.</li>
+    <li>To cut out a restart in the middle, <b>split</b> on both sides of it and delete the middle piece. To split, select the clip and put the playhead on the spot. Then press <kbd>S</kbd>, or use the <span class="ui">•••</span> (More) menu → <span class="ui">Split</span>.</li>
+    <li>Repeat for every answer. Keep each one at <b>3 to 8 seconds</b>.</li>
+  </ol>
+  <div class="rubric"><b>Rubric · Trims + cuts</b>Every answer is 3 to 8 seconds and starts on the first real word. Hard cuts only. No effects or title cards.</div>
+  <div class="check" data-answer="c">
+    <p class="q">Quick check: An answer goes: "Um, so, like… I think the pizza is actually good?" Where should the clip start?</p>
+    <div class="opts">
+      <button data-k="a">On "Um." Keep it natural.</button>
+      <button data-k="b">On "pizza," so it's as short as possible</button>
+      <button data-k="c">On "I think," the first real word</button>
+    </div>
+    <div class="fb" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- 4 ORDER -->
+<section class="step" data-title="Step 4">
+  <div class="num">Step 4 of 8</div>
+  <h2>Put the answers in order</h2>
+  <ol class="do">
+    <li><b>Open strong.</b> Put a clear, interesting answer first to hook the viewer.</li>
+    <li><b>Save your best answer for last.</b></li>
+    <li><b>Alternate left and right.</b> Put someone framed on the left next to someone framed on the right, so the faces seem to answer each other.</li>
+    <li>Drag the <b>tag line</b> clip to the very end. It's the last thing on the timeline.</li>
+    <li>Clips sit right next to each other: <b>hard cuts only</b>. When you hover between two clips, Canva offers <span class="ui">Add transition</span>. Skip it. Don't add music from Canva's audio library, effects or a title card with the question. The anchor's lead-in asks the question.</li>
+  </ol>
+  <figure>
+    <svg viewBox="0 0 640 170" role="img" aria-labelledby="tlT tlD">
+      <title id="tlT">Sample MOTS timeline</title>
+      <desc id="tlD">Six answers sit end to end with hard cuts, alternating people framed left and right. The strongest answer opens, the best answer is last, then the tag line closes the package. A lower third sits on the text track at the start of every answer.</desc>
+      <g font-family="Lexend, sans-serif" font-size="11" fill="currentColor">
+        <text x="0" y="40">Video</text><text x="0" y="96">Text</text>
+      </g>
+      <g font-family="Lexend, sans-serif" font-size="10" fill="#fff">
+        <rect x="60" y="22" width="78" height="28" rx="4" fill="var(--track-ans)"/><text x="66" y="40">1 · Strong L</text>
+        <rect x="140" y="22" width="62" height="28" rx="4" fill="var(--track-ans2)"/><text x="148" y="40">2 · R</text>
+        <rect x="204" y="22" width="88" height="28" rx="4" fill="var(--track-ans)"/><text x="214" y="40">3 · L</text>
+        <rect x="294" y="22" width="56" height="28" rx="4" fill="var(--track-ans2)"/><text x="300" y="40">4 · R</text>
+        <rect x="352" y="22" width="76" height="28" rx="4" fill="var(--track-ans)"/><text x="360" y="40">5 · L</text>
+        <rect x="430" y="22" width="96" height="28" rx="4" fill="var(--track-ans2)"/><text x="436" y="40">6 · Best R</text>
+        <rect x="528" y="22" width="60" height="28" rx="4" fill="var(--track-tag)"/><text x="535" y="40">Tag line</text>
+        <rect x="64" y="78" width="54" height="28" rx="4" fill="var(--track-lt)"/><text x="68" y="96">Name</text>
+        <rect x="144" y="78" width="46" height="28" rx="4" fill="var(--track-lt)"/><text x="148" y="96">Name</text>
+        <rect x="208" y="78" width="54" height="28" rx="4" fill="var(--track-lt)"/><text x="212" y="96">Name</text>
+        <rect x="298" y="78" width="44" height="28" rx="4" fill="var(--track-lt)"/><text x="302" y="96">Name</text>
+        <rect x="356" y="78" width="54" height="28" rx="4" fill="var(--track-lt)"/><text x="360" y="96">Name</text>
+        <rect x="434" y="78" width="54" height="28" rx="4" fill="var(--track-lt)"/><text x="438" y="96">Name</text>
+      </g>
+      <g font-family="Lexend, sans-serif" font-size="10" fill="currentColor">
+        <line x1="60" y1="130" x2="588" y2="130" stroke="currentColor"/>
+        <line x1="60" y1="125" x2="60" y2="135" stroke="currentColor"/><line x1="588" y1="125" x2="588" y2="135" stroke="currentColor"/>
+        <text x="250" y="150">30 to 90 seconds total</text>
+      </g>
+    </svg>
+    <figcaption>L = framed on the left, R = framed on the right. Your package will have different answers and lengths, but the pattern stays the same.</figcaption>
+  </figure>
+  <div class="rubric"><b>Rubric · Order + length</b>Strong open, best answer last, alternates left/right. 30 to 90 seconds. Ends on the show tag.</div>
+  <div class="tip">If everyone ended up framed on the same side, alternate as well as you can and fix it on your next shoot.</div>
+</section>
+
+<!-- 5 AUDIO -->
+<section class="step" data-title="Step 5">
+  <div class="num">Step 5 of 8</div>
+  <h2>Make every voice equally loud</h2>
+  <ol class="do">
+    <li>Play the package with headphones. Listen for any answer that's louder or softer than the rest.</li>
+    <li>Select that clip, then select the <span class="ui">volume</span> icon in the toolbar above the editor. Use the slider or type a number.</li>
+    <li>Raise a soft clip or lower a loud one until it matches the others.</li>
+    <li>Play it again from the start. A viewer should <b>never need to touch the volume</b>.</li>
+  </ol>
+  <div class="rubric"><b>Rubric · Audio</b>Every answer is clear. Every voice is equally loud. No need to touch the volume.</div>
+  <div class="tip">Volume can't fix an answer buried in hallway noise or wind. If you can't understand the words, cut that answer or reshoot it.</div>
+  <div class="check" data-answer="a">
+    <p class="q">Quick check: Answer 3 is much quieter than the others. Best fix?</p>
+    <div class="opts">
+      <button data-k="a">Raise that clip's volume until it matches the other answers</button>
+      <button data-k="b">Turn every other clip down to match it</button>
+      <button data-k="c">Leave it. Viewers can turn their volume up.</button>
+    </div>
+    <div class="fb" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- 6 LOWER THIRDS -->
+<section class="step" data-title="Step 6">
+  <div class="num">Step 6 of 8</div>
+  <h2>Add a lower third to every person</h2>
+  <ol class="do">
+    <li>Move the playhead to the start of the first answer.</li>
+    <li>Open <span class="ui">Text</span>, add a text box and type the person's <b>name</b> on one line and their <b>grade or title</b> on the next.</li>
+    <li>Drag it to the lower third of the frame, with nothing covering the face. Use a plain, readable style.</li>
+    <li>On the timeline, drag the text layer's edges so it shows during that answer and ends <b>before the cut</b> to the next person. Text sits on its own track above the video. If you see page thumbnails instead of a timeline, switch to the <span class="ui">Video Timeline</span>.</li>
+    <li>For the next person, copy and paste the text box (<kbd>Ctrl/⌘ C</kbd>, then <kbd>Ctrl/⌘ V</kbd>) so every lower third matches. Then change the words and move it under that answer.</li>
+    <li>Check every spelling against your notes, letter by letter.</li>
+  </ol>
+  <div class="rubric"><b>Rubric · Names + lower thirds</b>Every person has a lower third with name and grade or title, spelled the way they said it.</div>
+  <div class="check" data-answer="b">
+    <p class="q">Quick check: Which lower third earns full points?</p>
+    <div class="opts">
+      <button data-k="a">"Jaz"</button>
+      <button data-k="b">"Jazmine Ortiz" / "Junior," spelled the way she spelled it for you</button>
+      <button data-k="c">"Jasmine Ortiz" / "Junior," spelled the usual way</button>
+    </div>
+    <div class="fb" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- 7 TIMING -->
+<section class="step" data-title="Step 7">
+  <div class="num">Step 7 of 8</div>
+  <h2>Check the run time and watch it all the way through</h2>
+  <ol class="do">
+    <li>Look at the total length on the timeline. It should be <b>30 to 90 seconds</b>.</li>
+    <li>If you're over, cut your weakest answer or tighten trims, but keep every answer at 3 seconds or more. If you're under, add another usable answer.</li>
+    <li>Look for black frames or blank gaps between clips, especially at the start and end.</li>
+    <li>Watch it once all the way through with the rubric next to you. Ask yourself: <b>would anyone in this video be embarrassed?</b> If so, cut it.</li>
+  </ol>
+  <div class="rubric"><b>Rubric · Order + length</b>30 to 90 seconds. Over 90 seconds drops this row to a 2.</div>
+  <div class="check" data-answer="c">
+    <p class="q">Quick check: Your package runs 1:42 with 7 answers. What do you do?</p>
+    <div class="opts">
+      <button data-k="a">Nothing. More answers means more points.</button>
+      <button data-k="b">Speed the clips up so it fits</button>
+      <button data-k="c">Cut the weakest answer and tighten trims until it's 90 seconds or less</button>
+    </div>
+    <div class="fb" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- 8 DOWNLOAD -->
+<section class="step" data-title="Step 8">
+  <div class="num">Step 8 of 8</div>
+  <h2>Download and turn it in</h2>
+  <ol class="do">
+    <li>Click <span class="ui">Share</span> in the top right, then <span class="ui">Download</span>.</li>
+    <li>For file type, choose <span class="ui">MP4 Video</span>.</li>
+    <li>For quality, choose <span class="ui">1080p</span>. Skip 4K: the file is bigger and harder to share. Then click <span class="ui">Download</span>.</li>
+    <li>Watch the downloaded file once to make sure the audio and every lower third came through.</li>
+    <li>Turn it in with your <b>question, run time and lead-in</b>.</li>
+  </ol>
+  <div class="rubric"><b>Rubric · Deadlines + respect</b>.mp4 in <b>Friday</b>. Final with fixes by <b>Tuesday, end of class</b>. Permission asked. Nothing embarrasses anyone.</div>
+  <div class="tip">Lost the download? Canva saves your design automatically. Open it again from <span class="ui">Projects</span> on the Canva home screen and download it again.</div>
+</section>
+
+<!-- 9 FINAL -->
+<section class="step" data-title="Final check">
+  <div class="num">Final check</div>
+  <h2>Score yourself before your producer does</h2>
+  <p>Check each box only if it's true of the package you're about to turn in.</p>
+  <div class="cl" data-store="final">
+    <label><input type="checkbox"><span><span class="row">The question</span>Open-ended, clear and tested first. Every answer fits in under 10 seconds.</span></label>
+    <label><input type="checkbox"><span><span class="row">Mix of people</span>5–7 usable answers: different grades, 1+ staff member, more than one background.</span></label>
+    <label><input type="checkbox"><span><span class="row">Names + lower thirds</span>Every person has a name and grade or title, spelled the way they said it.</span></label>
+    <label><input type="checkbox"><span><span class="row">Framing + focus</span>Every answer is a steady, in-focus medium close-up at eye level, looking at the interviewer.</span></label>
+    <label><input type="checkbox"><span><span class="row">Audio</span>Every answer is clear and every voice is equally loud.</span></label>
+    <label><input type="checkbox"><span><span class="row">Trims + cuts</span>Every answer is 3–8 seconds, starts on the first real word, hard cuts only, no effects or title cards.</span></label>
+    <label><input type="checkbox"><span><span class="row">Order + length</span>Strong open, best answer last, alternates left/right, 30–90 seconds, ends on the tag line.</span></label>
+    <label><input type="checkbox"><span><span class="row">Deadlines + respect</span>.mp4 in Friday, final by Tuesday. Turn-in complete. Permission asked, nothing embarrassing.</span></label>
+  </div>
+  <p style="margin-top:16px"><span class="score" id="finalScore">0 / 8</span> rows ready</p>
+  <p id="finalMsg" style="color:var(--muted);font-size:15px">Any unchecked row is your next fix.</p>
+</section>
+
+<div class="nav">
+  <button class="btn ghost" id="prevBtn" type="button">← Back</button>
+  <button class="btn" id="nextBtn" type="button">Start →</button>
+</div>
+</main>
+
+<footer>KHS Cougar News · Canva steps match the Canva News Package module, checked against the Canva Help Center, Oct. 2026. Canva updates often, so menu labels may shift a little.</footer>
+
+<script>
+(function(){
+  var KEY='kcn-canva-mots-pkg-v1';
+  function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return {}}}
+  function save(s){try{localStorage.setItem(KEY,JSON.stringify(s))}catch(e){}}
+  var state=load();
+
+  var root=document.documentElement;
+  if(state.theme) root.setAttribute('data-theme',state.theme);
+  document.getElementById('themeBtn').addEventListener('click',function(){
+    var dark = root.getAttribute('data-theme')==='dark' || (!root.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+    state.theme = dark ? 'light':'dark'; root.setAttribute('data-theme',state.theme); save(state);
+  });
+
+  var steps=[].slice.call(document.querySelectorAll('.step'));
+  var i=Math.min(state.step||0,steps.length-1);
+  var prev=document.getElementById('prevBtn'), next=document.getElementById('nextBtn');
+  function show(n){
+    steps.forEach(function(s,k){s.classList.toggle('active',k===n)});
+    document.getElementById('barFill').style.width=(n/(steps.length-1)*100)+'%';
+    document.getElementById('stepLabel').textContent=steps[n].dataset.title;
+    prev.disabled = n===0;
+    next.textContent = n===0 ? 'Start →' : (n===steps.length-1 ? 'Back to start ↺' : 'Next →');
+    state.step=n; save(state);
+  }
+  next.addEventListener('click',function(){ i = (i===steps.length-1)?0:i+1; show(i); window.scrollTo({top:0,behavior:'smooth'}); });
+  prev.addEventListener('click',function(){ if(i>0){i--; show(i); window.scrollTo({top:0,behavior:'smooth'});} });
+
+  var feedback={
+    '2':{a:'Not quite. Fewer than 5 answers drops you to a 2 in the Mix of people row, and long answers cost you in Trims + cuts.',b:'Right. The rubric wants 5 to 7 usable answers. Get them before you edit.',c:'No. A repeat person doesn\'t add to your mix of people.'},
+    '3':{a:'Not quite. Keeping an "um" costs you a point in Trims + cuts.',b:'Too far. Cutting off "I think" changes what she said. Start on the first real word.',c:'Right. Start on the first real word and cut the filler.'},
+    '5':{a:'Right. Fix the one clip so every voice is equally loud.',b:'That makes the whole package too quiet. Fix the one clip instead.',c:'No. The rubric says viewers should never need to touch the volume.'},
+    '6':{a:'Not quite. A nickname alone is missing her last name and her grade.',b:'Right. Full name and grade, spelled the way she told you.',c:'Careful. "Usual" spelling isn\'t her spelling. A misspelled name costs points.'},
+    '7':{a:'Not quite. Over 90 seconds drops Order + length to a 2.',b:'No. Sped-up voices sound wrong. Cut and trim instead.',c:'Right. Cut your weakest answer first, then tighten trims.'}
+  };
+  document.querySelectorAll('.check').forEach(function(box){
+    var idx=String(steps.indexOf(box.closest('.step')));
+    var ans=box.dataset.answer, fb=box.querySelector('.fb');
+    box.querySelectorAll('button').forEach(function(b){
+      b.addEventListener('click',function(){
+        box.querySelectorAll('button').forEach(function(x){x.classList.remove('right','wrong')});
+        var ok=b.dataset.k===ans; b.classList.add(ok?'right':'wrong');
+        fb.textContent=(feedback[idx]||{})[b.dataset.k]||'';
+        fb.style.color= ok ? 'var(--ok)' : 'var(--bad)';
+      });
+    });
+  });
+
+  document.querySelectorAll('.cl').forEach(function(cl){
+    var name=cl.dataset.store, boxes=[].slice.call(cl.querySelectorAll('input'));
+    var saved=(state.lists||{})[name]||[];
+    boxes.forEach(function(b,k){ b.checked=!!saved[k]; b.addEventListener('change',update); });
+    function update(){
+      state.lists=state.lists||{}; state.lists[name]=boxes.map(function(b){return b.checked}); save(state);
+      if(name==='final'){
+        var n=boxes.filter(function(b){return b.checked}).length;
+        document.getElementById('finalScore').textContent=n+' / 8';
+        document.getElementById('finalMsg').textContent = n===8 ? 'Every row is ready. Turn it in.' : 'Any unchecked row is your next fix. Fix it before the deadline.';
+      }
+    }
+    update();
+  });
+
+  show(i);
+})();
+</script>
+</body>
+</html>

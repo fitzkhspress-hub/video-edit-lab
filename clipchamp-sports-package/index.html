@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clipchamp Sports Package</title>
+<meta name="description" content="KHS Cougar News micro-lesson: build a sports video package in Clipchamp, step by step, checked against the Sports Package Rubric.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800;900&family=Lexend:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#c0262d; --red-dark:#7d1418; --ink:#1c1c1e; --muted:#5b5b60;
+  --bg:#f7f3f1; --card:#ffffff; --soft:#f9e9e8; --line:#e4dcda;
+  --ok:#1f7a4a; --ok-bg:#e5f4ec; --bad:#a3231f; --bad-bg:#fbe7e6;
+  --track-vo:#3a6fb0; --track-tag:#24508a; --track-broll:#6b6b70; --track-bite:#c0262d; --track-nat:#2f8f5f; --track-lt:#d9902b;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#f1eeed; --muted:#b5afad; --bg:#141213; --card:#1f1c1d; --soft:#3a1f20; --line:#3a3536;
+    --ok:#6fd39c; --ok-bg:#17301f; --bad:#ff8a84; --bad-bg:#3a1a19;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#f1eeed; --muted:#b5afad; --bg:#141213; --card:#1f1c1d; --soft:#3a1f20; --line:#3a3536;
+  --ok:#6fd39c; --ok-bg:#17301f; --bad:#ff8a84; --bad-bg:#3a1a19;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:Lexend,system-ui,sans-serif;font-size:17px;line-height:1.55}
+header{background:linear-gradient(180deg,var(--red-dark),var(--red));color:#fff;padding:28px 16px 22px}
+.wrap{max-width:820px;margin:0 auto;padding:0 16px}
+header .wrap{padding:0}
+.kicker{font-family:Montserrat,sans-serif;font-weight:800;letter-spacing:.14em;font-size:12px;opacity:.9;text-transform:uppercase}
+h1{font-family:Montserrat,sans-serif;font-weight:900;font-size:clamp(28px,6vw,44px);line-height:1.05;margin:6px 0 8px;text-transform:uppercase}
+header p{margin:0;opacity:.92}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:3px 12px;font-size:13px}
+.progress{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line)}
+.progress .wrap{display:flex;align-items:center;gap:12px;padding-top:10px;padding-bottom:10px}
+.bar{flex:1;height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar span{display:block;height:100%;width:0;background:var(--red);transition:width .3s}
+.progress small{color:var(--muted);white-space:nowrap;font-size:13px}
+main{padding:22px 0 60px}
+.step{display:none;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 20px;box-shadow:0 1px 0 rgba(0,0,0,.03)}
+.step.active{display:block}
+.step h2{font-family:Montserrat,sans-serif;font-weight:800;font-size:22px;margin:4px 0 10px}
+.num{font-family:Montserrat,sans-serif;font-weight:900;color:var(--red);font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+ol.do{padding-left:22px;margin:10px 0}
+ol.do li{margin:6px 0}
+.ui{font-weight:600;background:var(--soft);border-radius:5px;padding:0 5px;white-space:nowrap}
+kbd{font-family:ui-monospace,Menlo,monospace;font-size:14px;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 6px;background:var(--bg)}
+.rubric{border-left:4px solid var(--red);background:var(--soft);padding:10px 14px;border-radius:0 10px 10px 0;margin:14px 0;font-size:15px}
+.rubric b{font-family:Montserrat,sans-serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:2px}
+.tip{border:1px dashed var(--line);border-radius:10px;padding:10px 14px;font-size:15px;color:var(--muted);margin:12px 0}
+.check{margin-top:18px;border-top:1px solid var(--line);padding-top:14px}
+.check p.q{font-weight:600;margin:0 0 8px}
+.opts{display:grid;gap:8px}
+.opts button{all:unset;cursor:pointer;border:1px solid var(--line);border-radius:10px;padding:10px 14px;background:var(--bg);font-size:15px}
+.opts button:hover,.opts button:focus-visible{border-color:var(--red);outline:none}
+.opts button.right{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+.opts button.wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+.fb{margin-top:8px;font-size:15px;min-height:1em}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:22px}
+.btn{all:unset;cursor:pointer;font-family:Montserrat,sans-serif;font-weight:800;font-size:14px;letter-spacing:.04em;padding:11px 18px;border-radius:10px;background:var(--red);color:#fff;text-align:center}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn:focus-visible{outline:3px solid var(--track-lt);outline-offset:2px}
+.btn[disabled]{opacity:.4;pointer-events:none}
+.cl label{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line);font-size:15px}
+.cl input{width:20px;height:20px;accent-color:var(--red);margin-top:2px;flex:none}
+.cl .row{font-family:Montserrat,sans-serif;font-weight:800;font-size:11px;letter-spacing:.1em;color:var(--red);text-transform:uppercase;display:block}
+figure{margin:16px 0;overflow-x:auto}
+figure svg{width:100%;min-width:560px;height:auto;display:block}
+figcaption{font-size:13px;color:var(--muted);margin-top:6px}
+.score{font-family:Montserrat,sans-serif;font-weight:900;font-size:28px;color:var(--red)}
+footer{color:var(--muted);font-size:13px;padding:0 16px 30px;max-width:820px;margin:0 auto}
+footer ul{padding-left:18px;margin:6px 0}
+footer a{color:var(--red)}
+.keys{font-size:14px;color:var(--muted);margin-top:8px}
+.theme{all:unset;cursor:pointer;font-size:13px;color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:3px 10px;float:right}
+</style>
+</head>
+<body>
+<!-- edit-lab-link --><nav aria-label="Video Edit Lab" style="background:#5e0f12;padding:7px 16px"><a href="../index.html" style="color:#fff;font:600 13px Lexend,system-ui,sans-serif;text-decoration:none">&larr; Video Edit Lab</a></nav>
+<header>
+  <div class="wrap">
+    <button class="theme" id="themeBtn" type="button" aria-label="Toggle light or dark theme">◐ Theme</button>
+    <div class="kicker">KHS Cougar News · 04 Story Packages</div>
+    <h1>Edit a Sports Package in Clipchamp</h1>
+    <p>Turn your game footage, VO, sound bites and tag into a finished sports package, one step at a time.</p>
+    <div class="meta"><span class="chip">About 9 minutes</span><span class="chip">8 steps + final check</span><span class="chip">Built on the Sports Package Rubric</span></div>
+  </div>
+</header>
+
+<div class="progress"><div class="wrap"><div class="bar"><span id="barFill"></span></div><small id="stepLabel">Start</small></div></div>
+
+<main class="wrap">
+
+<!-- 0 START -->
+<section class="step" data-title="Start">
+  <div class="num">Before you open Clipchamp</div>
+  <h2>Have these ready</h2>
+  <p>A sports package is built from what happened on the field. Don't open Clipchamp until you can check every box.</p>
+  <div class="cl" data-store="ready">
+    <label><input type="checkbox"><span><span class="row">Script</span>Script is approved, read out loud and timed to your target: <b>:30, :45 or :60</b>. It ends on your <b>tag</b>.</span></label>
+    <label><input type="checkbox"><span><span class="row">VO</span>Your VO and tag are recorded as their own clean files. (No VO file yet? You can record it in Clipchamp in Step 3.)</span></label>
+    <label><input type="checkbox"><span><span class="row">Sound bite</span>Each player or coach bite is <b>8 to 12 seconds</b>, and you know its <b>out-cue</b> (the last words).</span></label>
+    <label><input type="checkbox"><span><span class="row">Game b-roll</span>You shot <b>wide, medium and tight</b> sequences of real game action, plus reactions: bench, crowd, coach.</span></label>
+    <label><input type="checkbox"><span><span class="row">Stats</span>Every score, stat and record in your script is <b>checked against the source</b>, like the official scorebook or the coach.</span></label>
+    <label><input type="checkbox"><span><span class="row">Names</span>Each speaker's name and title (or grade and position) is spelled right and confirmed with that person.</span></label>
+  </div>
+  <div class="tip">Use headphones for the whole edit. Crowd noise and whistles can bury a voice, and you won't hear it through laptop speakers.</div>
+  <p class="keys">Shortcuts you'll use: <kbd>S</kbd> split at the playhead · <kbd>Space</kbd> play/pause · <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>Z</kbd> undo · <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>=</kbd> / <kbd>-</kbd> zoom the timeline</p>
+</section>
+
+<!-- 1 PROJECT -->
+<section class="step" data-title="Step 1">
+  <div class="num">Step 1 of 8</div>
+  <h2>Start a blank project</h2>
+  <ol class="do">
+    <li>Open Clipchamp and select <span class="ui">Create a new video</span>. Skip the templates. Sports templates add flashy effects and title cards. Your package should look like news, not a hype reel.</li>
+    <li>Click the project name at the top (it starts as <span class="ui">Untitled video</span>) and rename it with your slug, like <b>SPORTS-volleyball-district</b>, so your producer can find it.</li>
+    <li>Leave the frame at widescreen <b>16:9</b> to match the broadcast.</li>
+  </ol>
+  <div class="tip">Clipchamp updates its layout often. If a button has moved, look nearby for the same name.</div>
+</section>
+
+<!-- 2 IMPORT -->
+<section class="step" data-title="Step 2">
+  <div class="num">Step 2 of 8</div>
+  <h2>Import your own media</h2>
+  <ol class="do">
+    <li>Click <span class="ui">Import media</span> and add your <b>VO</b>, your <b>tag</b>, your <b>sound bite clips</b> and your <b>game footage</b>. They show up in <span class="ui">Your media</span>.</li>
+    <li>Game clips are often long. Watch each one once and write down the time of every play your script names, so you can find it fast in Step 4.</li>
+    <li>Wait until every file finishes importing before you start building.</li>
+  </ol>
+  <div class="rubric"><b>Rubric · B-roll</b>Wide, medium and tight sequences. Steady, in focus, real action. A staged shot costs you a point.</div>
+  <div class="check" data-answer="b">
+    <p class="q">Quick check: You missed the game-winning play on camera. What should you do?</p>
+    <div class="opts">
+      <button data-k="a">Download the play from another station's highlight video</button>
+      <button data-k="b">Rewrite that VO line to fit plays you did shoot, and get the winning moment from your bite or the reactions</button>
+      <button data-k="c">Have the player re-create the play after the game</button>
+    </div>
+    <div class="fb" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- 3 SPINE -->
+<section class="step" data-title="Step 3">
+  <div class="num">Step 3 of 8</div>
+  <h2>Build the spine: VO, bites and tag</h2>
+  <p>Build the package around the audio. The words decide the length, and the game footage goes on top.</p>
+  <ol class="do">
+    <li>Drag your <b>VO</b> from <span class="ui">Your media</span> onto the timeline and line it up with 0:00.</li>
+    <li>No VO file? Select <span class="ui">Record &amp; create</span>, then <span class="ui">Audio</span>. Allow the microphone, click the red mic button, read your script, then click <span class="ui">Stop</span>. Choose <span class="ui">Retake recording</span> if you stumbled, or <span class="ui">Save and edit</span> to keep it.</li>
+    <li>Find each spot where a bite plays. Click the VO, park the playhead there and press <kbd>S</kbd> to split it. Drag the second half right to open a space.</li>
+    <li>Drag the <b>sound bite clip</b> onto the video track in that space. Trim it: park the playhead where the thought starts, press <kbd>S</kbd> and delete the extra. Do the same right after the out-cue.</li>
+    <li>Put your <b>tag</b> at the very end. Your package ends on it.</li>
+  </ol>
+  <div class="rubric"><b>Rubric · Sound bite</b>One complete thought, 8 to 12 seconds. A feeling or opinion. Clean out-cue.</div>
+  <div class="tip">Zoom in on the timeline (<kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>=</kbd>) to split exactly between words.</div>
+  <div class="check" data-answer="c">
+    <p class="q">Quick check: Which part of the player's interview makes the best bite?</p>
+    <div class="opts">
+      <button data-k="a">"We won 3 to 1, and I finished with 12 kills."</button>
+      <button data-k="b">"So, um, yeah, it was a game, and we played it."</button>
+      <button data-k="c">"After losing to them last year, beating them on our home court felt unreal. We wanted this one so bad."</button>
+    </div>
+    <div class="fb" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- 4 BROLL -->
+<section class="step" data-title="Step 4">
+  <div class="num">Step 4 of 8</div>
+  <h2>Cover the VO with game footage</h2>
+  <ol class="do">
+    <li>Under each line of VO, drag in the play that line describes. <b>Show what the words say.</b> If the VO names a player's serve, show that player serving.</li>
+    <li>Cut long game clips down to the action with <kbd>S</kbd>. Start just before the play, cut once it's over and delete the rest.</li>
+    <li>Build <b>sequences</b>: a wide of the play, a medium of the player, a tight of the ball, hands or face.</li>
+    <li>Use <b>reaction shots</b> (bench, crowd, coach) to show how the moment felt.</li>
+    <li>Use <b>straight cuts</b> only. No transitions, no slow motion or speed changes, no music.</li>
+  </ol>
+  <figure>
+    <svg viewBox="0 0 640 210" role="img" aria-labelledby="tlT tlD">
+      <title id="tlT">Sample sports package timeline</title>
+      <desc id="tlD">Game footage covers the VO in wide, medium, tight sequences, with a reaction shot. A player's sound bite sits between VO sections with its own audio. Nat sound plays low under every VO section. The tag closes the package over a final shot. The lower third starts 1 second into the bite and holds 4 seconds.</desc>
+      <g font-family="Lexend, sans-serif" font-size="11" fill="currentColor">
+        <text x="0" y="40">Video</text><text x="0" y="82">VO</text><text x="0" y="124">Nat</text><text x="0" y="166">Text</text>
+      </g>
+      <g font-family="Lexend, sans-serif" font-size="10" fill="#fff">
+        <rect x="60" y="22" width="44" height="28" rx="4" fill="var(--track-broll)"/><text x="77" y="40">W</text>
+        <rect x="106" y="22" width="44" height="28" rx="4" fill="var(--track-broll)"/><text x="123" y="40">M</text>
+        <rect x="152" y="22" width="44" height="28" rx="4" fill="var(--track-broll)"/><text x="170" y="40">T</text>
+        <rect x="198" y="22" width="150" height="28" rx="4" fill="var(--track-bite)"/><text x="244" y="40">Sound bite</text>
+        <rect x="350" y="22" width="44" height="28" rx="4" fill="var(--track-broll)"/><text x="367" y="40">W</text>
+        <rect x="396" y="22" width="44" height="28" rx="4" fill="var(--track-broll)"/><text x="413" y="40">M</text>
+        <rect x="442" y="22" width="44" height="28" rx="4" fill="var(--track-broll)"/><text x="460" y="40">T</text>
+        <rect x="488" y="22" width="56" height="28" rx="4" fill="var(--track-broll)"/><text x="494" y="40">Reaction</text>
+        <rect x="546" y="22" width="60" height="28" rx="4" fill="var(--track-broll)"/><text x="563" y="40">Wide</text>
+        <rect x="60" y="64" width="136" height="28" rx="4" fill="var(--track-vo)"/><text x="110" y="82">VO 1</text>
+        <rect x="350" y="64" width="194" height="28" rx="4" fill="var(--track-vo)"/><text x="432" y="82">VO 2</text>
+        <rect x="546" y="64" width="60" height="28" rx="4" fill="var(--track-tag)"/><text x="565" y="82">Tag</text>
+        <rect x="60" y="112" width="136" height="16" rx="4" fill="var(--track-nat)" opacity=".75"/><text x="66" y="124">crowd, whistle: low</text>
+        <rect x="350" y="112" width="256" height="16" rx="4" fill="var(--track-nat)" opacity=".75"/><text x="356" y="124">crowd, whistle: low</text>
+        <rect x="213" y="148" width="60" height="28" rx="4" fill="var(--track-lt)"/><text x="219" y="166">Lower 3rd</text>
+      </g>
+      <g font-family="Lexend, sans-serif" font-size="10" fill="currentColor">
+        <line x1="198" y1="188" x2="213" y2="188" stroke="currentColor"/><text x="176" y="202">1 sec in</text>
+        <line x1="213" y1="182" x2="273" y2="182" stroke="currentColor"/><text x="228" y="202">holds 4 sec</text>
+      </g>
+    </svg>
+    <figcaption>A sample layout. Your package will have different plays and lengths, but the pattern stays the same.</figcaption>
+  </figure>
+  <div class="rubric"><b>Rubric · Edit</b>Pictures match words. Straight cuts. A mismatch or a repeated shot costs you a point.</div>
+  <div class="check" data-answer="a">
+    <p class="q">Quick check: Your VO says, "Junior Jayden Brooks broke free for a 40-yard touchdown." What goes under that line?</p>
+    <div class="opts">
+      <button data-k="a">Brooks's 40-yard run, wide then tighter, ending in the end zone</button>
+      <button data-k="b">The scoreboard, held for the whole line</button>
+      <button data-k="c">Any good-looking run from the game</button>
+    </div>
+    <div class="fb" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- 5 AUDIO -->
+<section class="step" data-title="Step 5">
+  <div class="num">Step 5 of 8</div>
+  <h2>Mix the audio</h2>
+  <ol class="do">
+    <li>Click a game clip, then open the <span class="ui">Audio</span> tab in the property panel on the right.</li>
+    <li>Drag the <span class="ui">volume</span> slider left until the <b>nat sound</b> (crowd, whistles, the ball, the band) sits <i>under</i> your VO. Do this for every game clip.</li>
+    <li><b>Never drag nat sound to 0</b>, and don't detach and delete it. The rubric wants nat sound under <b>every</b> VO.</li>
+    <li>Click the VO, each bite and the tag and adjust them so the voices sound equally loud. The slider goes up to 200%.</li>
+    <li>Bites recorded at the game may have crowd noise behind them. If the speaker is hard to hear, turn the bite up, or pick a cleaner bite.</li>
+    <li>Play the whole package with headphones. Crackle or fuzz means a clip is too loud, so lower it.</li>
+  </ol>
+  <div class="rubric"><b>Rubric · Audio</b>Voices clear at −12 to −6 dB. Nat sound under every VO.</div>
+  <div class="tip">Clipchamp's volume slider shows a percentage, not decibels. Set levels by ear in Clipchamp, then check the −12 to −6 dB peak the way your class does.</div>
+  <div class="check" data-answer="a">
+    <p class="q">Quick check: The crowd is so loud it drowns out your VO. Best fix?</p>
+    <div class="opts">
+      <button data-k="a">Lower the game clip's volume until the crowd sits under the VO</button>
+      <button data-k="b">Mute the game footage so only the VO plays</button>
+      <button data-k="c">Turn the VO up to 200%</button>
+    </div>
+    <div class="fb" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- 6 LOWER THIRD -->
+<section class="step" data-title="Step 6">
+  <div class="num">Step 6 of 8</div>
+  <h2>Add the lower thirds</h2>
+  <ol class="do">
+    <li>Open the <span class="ui">Text</span> tab in the left toolbar and choose a plain, readable style. Skip anything marked with a diamond. That's a premium feature, and it can block your export.</li>
+    <li>Drag the text onto the timeline on a track above the sound bite.</li>
+    <li>Start it <b>1 second</b> after the bite starts. Drag its trim handles so it holds for <b>4 seconds</b>.</li>
+    <li>With the text selected, open the <span class="ui">Text</span> tab in the property panel. Type the speaker's <b>name</b> and <b>title</b>, like <i>Head Volleyball Coach</i> or <i>Senior Outside Hitter</i>.</li>
+    <li>In the preview, drag the text to the lower part of the frame, clear of the speaker's face. Repeat for every speaker, then check each spelling against your confirmed notes, letter by letter.</li>
+  </ol>
+  <div class="rubric"><b>Rubric · Lower third</b>Lower third correct: spelled right and timed right. In Cougar News, it starts 1 second in and holds 4 seconds.</div>
+  <div class="tip">Putting the final score or a stat on screen? Check it against the source one more time. Every name, stat and number is checked before the final.</div>
+  <div class="check" data-answer="c">
+    <p class="q">Quick check: The online roster spells your player's name "Kaitlynn," but your notes say "Caitlin." What do you do?</p>
+    <div class="opts">
+      <button data-k="a">Use the roster. It's official.</button>
+      <button data-k="b">Use your notes. You wrote it down.</button>
+      <button data-k="c">Confirm the spelling with the player before you turn it in</button>
+    </div>
+    <div class="fb" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- 7 CLEAN UP + TIMING -->
+<section class="step" data-title="Step 7">
+  <div class="num">Step 7 of 8</div>
+  <h2>Clean up and check the run time</h2>
+  <ol class="do">
+    <li>Look for gaps on the timeline. Hover over a gap and click <span class="ui">Delete this gap</span>, or right-click a tiny gap and choose it there.</li>
+    <li>Remove any transitions, music or repeated shots you added by accident.</li>
+    <li>Check the total length. It should be <b>within 2 seconds</b> of your target. If you're over, tighten VO pauses or trim plays down to the action. If you're under, ask your producer before you add anything.</li>
+    <li>Watch it once all the way through with the rubric next to you. Make sure the package ends on your tag.</li>
+  </ol>
+  <div class="rubric"><b>Rubric · Timing</b>Within 2 seconds of the target (:30 · :45 · :60). Read out loud and timed.</div>
+  <div class="check" data-answer="b">
+    <p class="q">Quick check: Your target is :60 and your package runs :53. Where does that land in the Timing row?</p>
+    <div class="opts">
+      <button data-k="a">A 4. Under is fine.</button>
+      <button data-k="b">A 2. It's 7 seconds off target, so talk to your producer about what to add.</button>
+      <button data-k="c">A 1. Anything short is a 1.</button>
+    </div>
+    <div class="fb" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- 8 EXPORT -->
+<section class="step" data-title="Step 8">
+  <div class="num">Step 8 of 8</div>
+  <h2>Export and turn it in</h2>
+  <ol class="do">
+    <li>Remove anything marked with a diamond (premium) so the export isn't blocked.</li>
+    <li>Click <span class="ui">Export</span> in the top-right corner of the editor.</li>
+    <li>Choose <span class="ui">1080p</span> and wait for the progress bar to finish. The MP4 saves to your computer, usually in Downloads.</li>
+    <li>Watch the exported file once to make sure the audio and lower thirds came through.</li>
+    <li>Turn in everything the full turn-in asks for. A missing step costs you a point.</li>
+  </ol>
+  <div class="rubric"><b>Rubric · Deadlines + respect</b>Final by <b>Tuesday, end of class</b>. Full turn-in. Nothing embarrasses anyone, including the other team.</div>
+  <div class="tip">If Clipchamp asks about gaps when you click Export, choose to remove them. Lost the file? Open the project again from your Clipchamp home page and export it again.</div>
+</section>
+
+<!-- 9 FINAL -->
+<section class="step" data-title="Final check">
+  <div class="num">Final check</div>
+  <h2>Score yourself before your producer does</h2>
+  <p>Check each box only if it's true of the package you're about to turn in.</p>
+  <div class="cl" data-store="final">
+    <label><input type="checkbox"><span><span class="row">Focus + facts</span>The focus is clear, and every name, title, date, stat and number was checked against the source.</span></label>
+    <label><input type="checkbox"><span><span class="row">Sound bite</span>8–12 seconds, a feeling or opinion (not a score or stat), ending on a clean out-cue.</span></label>
+    <label><input type="checkbox"><span><span class="row">Script</span>Short, active sentences with the source first, written to the video. Ends on a tag.</span></label>
+    <label><input type="checkbox"><span><span class="row">Timing</span>Within 2 seconds of my target.</span></label>
+    <label><input type="checkbox"><span><span class="row">B-roll</span>Wide, medium and tight sequences of real game action. Steady and in focus, never staged.</span></label>
+    <label><input type="checkbox"><span><span class="row">Audio</span>Voices are clear and even. Nat sound plays under every VO.</span></label>
+    <label><input type="checkbox"><span><span class="row">Edit + lower third</span>Pictures match words, straight cuts, no repeated shots. Every lower third is spelled right and timed right.</span></label>
+    <label><input type="checkbox"><span><span class="row">Deadlines + respect</span>Full turn-in, final by Tuesday at the end of class, and nothing embarrasses anyone.</span></label>
+  </div>
+  <p style="margin-top:16px"><span class="score" id="finalScore">0 / 8</span> rows ready</p>
+  <p id="finalMsg" style="color:var(--muted);font-size:15px">Any unchecked row is your next fix.</p>
+</section>
+
+<div class="nav">
+  <button class="btn ghost" id="prevBtn" type="button">← Back</button>
+  <button class="btn" id="nextBtn" type="button">Start →</button>
+</div>
+</main>
+
+<footer>
+  <p><b>Sources.</b> Clipchamp steps are based on Microsoft's Clipchamp support articles, Oct. 2026. Clipchamp updates its layout often, so a button may move. Look for the same name nearby.</p>
+  <ul>
+    <li><a href="https://support.microsoft.com/en-us/clipchamp/how-to-add-voiceovers-to-videos" target="_blank" rel="noopener">How to add voiceovers to videos</a></li>
+    <li><a href="https://support.microsoft.com/en-us/clipchamp/how-to-split-or-cut-videos-and-audio-assets" target="_blank" rel="noopener">How to split or cut video and audio clips</a></li>
+    <li><a href="https://support.microsoft.com/en-us/clipchamp/how-to-change-the-volume-of-a-video-or-audio-clip" target="_blank" rel="noopener">How to change the volume of a video or audio clip</a></li>
+    <li><a href="https://support.microsoft.com/en-us/clipchamp/how-to-add-text-and-titles-to-a-video" target="_blank" rel="noopener">How to add titles and text to a video</a></li>
+    <li><a href="https://support.microsoft.com/en-us/clipchamp/how-to-remove-gaps-on-the-timeline" target="_blank" rel="noopener">How to remove gaps from your video editing project</a></li>
+    <li><a href="https://support.microsoft.com/en-us/clipchamp/exporting-and-saving-a-video-in-clipchamp" target="_blank" rel="noopener">Exporting and saving a video in Clipchamp</a></li>
+    <li><a href="https://support.microsoft.com/en-us/clipchamp/keyboard-shortcuts-for-clipchamp" target="_blank" rel="noopener">Keyboard shortcuts for Clipchamp</a></li>
+  </ul>
+  <p>KHS Cougar News · 04 Story Packages</p>
+</footer>
+<script>
+(function(){
+  var KEY='kcn-cc-sports-pkg-v1';
+  function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return {}}}
+  function save(s){try{localStorage.setItem(KEY,JSON.stringify(s))}catch(e){}}
+  var state=load();
+
+  var root=document.documentElement;
+  if(state.theme) root.setAttribute('data-theme',state.theme);
+  document.getElementById('themeBtn').addEventListener('click',function(){
+    var dark = root.getAttribute('data-theme')==='dark' || (!root.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+    state.theme = dark ? 'light':'dark'; root.setAttribute('data-theme',state.theme); save(state);
+  });
+
+  var steps=[].slice.call(document.querySelectorAll('.step'));
+  var i=Math.min(state.step||0,steps.length-1);
+  var prev=document.getElementById('prevBtn'), next=document.getElementById('nextBtn');
+  function show(n){
+    steps.forEach(function(s,k){s.classList.toggle('active',k===n)});
+    document.getElementById('barFill').style.width=(n/(steps.length-1)*100)+'%';
+    document.getElementById('stepLabel').textContent=steps[n].dataset.title;
+    prev.disabled = n===0;
+    next.textContent = n===0 ? 'Start →' : (n===steps.length-1 ? 'Back to start ↺' : 'Next →');
+    state.step=n; save(state);
+  }
+  next.addEventListener('click',function(){ i = (i===steps.length-1)?0:i+1; show(i); window.scrollTo({top:0,behavior:'smooth'}); });
+  prev.addEventListener('click',function(){ if(i>0){i--; show(i); window.scrollTo({top:0,behavior:'smooth'});} });
+
+  var feedback={
+    '2':{a:'No. Another outlet\'s video isn\'t your reporting, and it isn\'t yours to use.',b:'Right. Write to the video you have. A bite or reaction shot can carry the big moment.',c:'No. A re-created play is staged, and staged shots cost points in the B-roll row.'},
+    '3':{a:'Not quite. That\'s a score and a stat, facts the anchor could say. A fact in the bite drops you to a 2.',b:'No. There\'s no complete thought here, so it can\'t carry the story.',c:'Right. It\'s a feeling, one complete thought, and nobody else could say it.'},
+    '4':{a:'Right. Pictures match words: show that exact play.',b:'Not quite. The VO names a run, so show the run.',c:'No. A different run is a mismatch, and the Edit row takes a point for it.'},
+    '5':{a:'Right. Lower it, but keep it audible. Nat sound goes under every VO.',b:'Not quite. Muted nat sound costs points. Keep it low, not off.',c:'Not quite. That can make the VO crackle and push it past −6 dB, and it will jump next to the bites.'},
+    '6':{a:'Not quite. Rosters can be wrong. Names are confirmed with a person.',b:'Close, but the two don\'t match, so you need to confirm.',c:'Right. When sources disagree, ask the person.'},
+    '7':{a:'Not quite. Only within 2 seconds earns a 4, under or over.',b:'Right. 6 to 10 seconds off is a 2. Ask your producer before you add anything.',c:'Too harsh. A 1 is more than 10 seconds off.'}
+  };
+  document.querySelectorAll('.check').forEach(function(box){
+    var idx=String(steps.indexOf(box.closest('.step')));
+    var ans=box.dataset.answer, fb=box.querySelector('.fb');
+    box.querySelectorAll('button').forEach(function(b){
+      b.addEventListener('click',function(){
+        box.querySelectorAll('button').forEach(function(x){x.classList.remove('right','wrong')});
+        var ok=b.dataset.k===ans; b.classList.add(ok?'right':'wrong');
+        fb.textContent=(feedback[idx]||{})[b.dataset.k]||'';
+        fb.style.color= ok ? 'var(--ok)' : 'var(--bad)';
+      });
+    });
+  });
+
+  document.querySelectorAll('.cl').forEach(function(cl){
+    var name=cl.dataset.store, boxes=[].slice.call(cl.querySelectorAll('input'));
+    var saved=(state.lists||{})[name]||[];
+    boxes.forEach(function(b,k){ b.checked=!!saved[k]; b.addEventListener('change',update); });
+    function update(){
+      state.lists=state.lists||{}; state.lists[name]=boxes.map(function(b){return b.checked}); save(state);
+      if(name==='final'){
+        var n=boxes.filter(function(b){return b.checked}).length;
+        document.getElementById('finalScore').textContent=n+' / 8';
+        document.getElementById('finalMsg').textContent = n===8 ? 'Every row is ready. Turn it in.' : 'Any unchecked row is your next fix. Fix it before the deadline.';
+      }
+    }
+    update();
+  });
+
+  show(i);
+})();
+</script>
+</body>
+</html>

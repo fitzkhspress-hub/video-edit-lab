@@ -1,0 +1,427 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Clipchamp Feature Package</title>
+<meta name="description" content="KHS Cougar News micro-lesson: build a feature video package in Clipchamp, step by step, checked against the Feature Rubric.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800;900&family=Lexend:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#c0262d; --red-dark:#7d1418; --ink:#1c1c1e; --muted:#5b5b60;
+  --bg:#f7f3f1; --card:#ffffff; --soft:#f9e9e8; --line:#e4dcda;
+  --ok:#1f7a4a; --ok-bg:#e5f4ec; --bad:#a3231f; --bad-bg:#fbe7e6;
+  --track-vo:#3a6fb0; --track-tag:#24508a; --track-broll:#6b6b70; --track-bite:#c0262d; --track-nat:#2f8f5f; --track-lt:#d9902b;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#f1eeed; --muted:#b5afad; --bg:#141213; --card:#1f1c1d; --soft:#3a1f20; --line:#3a3536;
+    --ok:#6fd39c; --ok-bg:#17301f; --bad:#ff8a84; --bad-bg:#3a1a19;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#f1eeed; --muted:#b5afad; --bg:#141213; --card:#1f1c1d; --soft:#3a1f20; --line:#3a3536;
+  --ok:#6fd39c; --ok-bg:#17301f; --bad:#ff8a84; --bad-bg:#3a1a19;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:Lexend,system-ui,sans-serif;font-size:17px;line-height:1.55}
+header{background:linear-gradient(180deg,var(--red-dark),var(--red));color:#fff;padding:28px 16px 22px}
+.wrap{max-width:820px;margin:0 auto;padding:0 16px}
+header .wrap{padding:0}
+.kicker{font-family:Montserrat,sans-serif;font-weight:800;letter-spacing:.14em;font-size:12px;opacity:.9;text-transform:uppercase}
+h1{font-family:Montserrat,sans-serif;font-weight:900;font-size:clamp(28px,6vw,44px);line-height:1.05;margin:6px 0 8px;text-transform:uppercase}
+header p{margin:0;opacity:.92}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:3px 12px;font-size:13px}
+.progress{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line)}
+.progress .wrap{display:flex;align-items:center;gap:12px;padding-top:10px;padding-bottom:10px}
+.bar{flex:1;height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar span{display:block;height:100%;width:0;background:var(--red);transition:width .3s}
+.progress small{color:var(--muted);white-space:nowrap;font-size:13px}
+main{padding:22px 0 60px}
+.step{display:none;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 20px;box-shadow:0 1px 0 rgba(0,0,0,.03)}
+.step.active{display:block}
+.step h2{font-family:Montserrat,sans-serif;font-weight:800;font-size:22px;margin:4px 0 10px}
+.num{font-family:Montserrat,sans-serif;font-weight:900;color:var(--red);font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+ol.do{padding-left:22px;margin:10px 0}
+ol.do li{margin:6px 0}
+.ui{font-weight:600;background:var(--soft);border-radius:5px;padding:0 5px;white-space:nowrap}
+kbd{font-family:ui-monospace,Menlo,monospace;font-size:14px;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 6px;background:var(--bg)}
+.rubric{border-left:4px solid var(--red);background:var(--soft);padding:10px 14px;border-radius:0 10px 10px 0;margin:14px 0;font-size:15px}
+.rubric b{font-family:Montserrat,sans-serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:2px}
+.tip{border:1px dashed var(--line);border-radius:10px;padding:10px 14px;font-size:15px;color:var(--muted);margin:12px 0}
+.check{margin-top:18px;border-top:1px solid var(--line);padding-top:14px}
+.check p.q{font-weight:600;margin:0 0 8px}
+.opts{display:grid;gap:8px}
+.opts button{all:unset;cursor:pointer;border:1px solid var(--line);border-radius:10px;padding:10px 14px;background:var(--bg);font-size:15px}
+.opts button:hover,.opts button:focus-visible{border-color:var(--red);outline:none}
+.opts button.right{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+.opts button.wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+.fb{margin-top:8px;font-size:15px;min-height:1em}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:22px}
+.btn{all:unset;cursor:pointer;font-family:Montserrat,sans-serif;font-weight:800;font-size:14px;letter-spacing:.04em;padding:11px 18px;border-radius:10px;background:var(--red);color:#fff;text-align:center}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn:focus-visible{outline:3px solid var(--track-lt);outline-offset:2px}
+.btn[disabled]{opacity:.4;pointer-events:none}
+.cl label{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line);font-size:15px}
+.cl input{width:20px;height:20px;accent-color:var(--red);margin-top:2px;flex:none}
+.cl .row{font-family:Montserrat,sans-serif;font-weight:800;font-size:11px;letter-spacing:.1em;color:var(--red);text-transform:uppercase;display:block}
+figure{margin:16px 0;overflow-x:auto}
+figure svg{width:100%;min-width:560px;height:auto;display:block}
+figcaption{font-size:13px;color:var(--muted);margin-top:6px}
+.score{font-family:Montserrat,sans-serif;font-weight:900;font-size:28px;color:var(--red)}
+footer{color:var(--muted);font-size:13px;padding:0 16px 30px;max-width:820px;margin:0 auto}
+footer ul{padding-left:18px;margin:6px 0}
+footer a{color:var(--red)}
+.keys{font-size:14px;color:var(--muted);margin-top:8px}
+.theme{all:unset;cursor:pointer;font-size:13px;color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:3px 10px;float:right}
+</style>
+</head>
+<body>
+<!-- edit-lab-link --><nav aria-label="Video Edit Lab" style="background:#5e0f12;padding:7px 16px"><a href="../index.html" style="color:#fff;font:600 13px Lexend,system-ui,sans-serif;text-decoration:none">&larr; Video Edit Lab</a></nav>
+<header>
+  <div class="wrap">
+    <button class="theme" id="themeBtn" type="button" aria-label="Toggle light or dark theme">◐ Theme</button>
+    <div class="kicker">KHS Cougar News · 04 Story Packages</div>
+    <h1>Edit a Feature Package in Clipchamp</h1>
+    <p>Turn your interviews, VO, b-roll and nat sound into a finished feature package, one step at a time.</p>
+    <div class="meta"><span class="chip">About 9 minutes</span><span class="chip">8 steps + final check</span><span class="chip">Built on the Feature Rubric</span></div>
+  </div>
+</header>
+
+<div class="progress"><div class="wrap"><div class="bar"><span id="barFill"></span></div><small id="stepLabel">Start</small></div></div>
+
+<main class="wrap">
+
+<!-- 0 START -->
+<section class="step" data-title="Start">
+  <div class="num">Before you open Clipchamp</div>
+  <h2>Have these ready</h2>
+  <p>A feature package lives or dies on its people, pictures and sound. Don't open Clipchamp until you can check every box.</p>
+  <div class="cl" data-store="ready">
+    <label><input type="checkbox"><span><span class="row">Focus</span>You can say your story's focus in <b>3 words</b>, and your research worksheet, questions and shot list are done.</span></label>
+    <label><input type="checkbox"><span><span class="row">Script</span>Script is approved and read out loud. It has a clear <b>beginning, middle and end</b>, with <b>gold coins</b> (strong moments) spread through it so viewers keep watching.</span></label>
+    <label><input type="checkbox"><span><span class="row">VO</span>Your VO is recorded as its own clean file, with no room echo. Every name is said the way that person says it. (No VO file yet? You can record it in Clipchamp in Step 3.)</span></label>
+    <label><input type="checkbox"><span><span class="row">Interviews</span>You have <b>2 or more credible sources</b>, people who really know the story, and you've shown more than one side.</span></label>
+    <label><input type="checkbox"><span><span class="row">B-roll</span>You shot <b>wide, medium and tight</b> sequences, plus <b>WALLDO</b> shots, on a tripod. You also have <b>nat sound</b>: the real sounds of the scene.</span></label>
+    <label><input type="checkbox"><span><span class="row">Names + facts</span>Each speaker's name and title are spelled right and confirmed with that person. Every fact in your script is checked against a credible source.</span></label>
+  </div>
+  <div class="tip">Use headphones for the whole edit. You can't hear room echo or a weak nat sound through laptop speakers.</div>
+  <p class="keys">Shortcuts you'll use: <kbd>S</kbd> split at the playhead · <kbd>Space</kbd> play/pause · <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>Z</kbd> undo · <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>=</kbd> / <kbd>-</kbd> zoom the timeline</p>
+</section>
+
+<!-- 1 PROJECT -->
+<section class="step" data-title="Step 1">
+  <div class="num">Step 1 of 8</div>
+  <h2>Start a blank project</h2>
+  <ol class="do">
+    <li>Open Clipchamp and select <span class="ui">Create a new video</span>. Skip the templates. Templates add title cards and effects. Your package should look like news.</li>
+    <li>Click the project name at the top (it starts as <span class="ui">Untitled video</span>) and rename it with your slug, like <b>FEATURE-robotics-team</b>, so your producer can find it.</li>
+    <li>Leave the frame at widescreen <b>16:9</b> to match the broadcast.</li>
+  </ol>
+  <div class="tip">Clipchamp updates its layout often. If a button has moved, look nearby for the same name.</div>
+</section>
+
+<!-- 2 IMPORT -->
+<section class="step" data-title="Step 2">
+  <div class="num">Step 2 of 8</div>
+  <h2>Import, then pick your best shots</h2>
+  <ol class="do">
+    <li>Click <span class="ui">Import media</span> and add your <b>VO</b>, your <b>interview clips</b> and your <b>b-roll</b>. They show up in <span class="ui">Your media</span>.</li>
+    <li>Wait until every file finishes importing before you start building.</li>
+    <li>Watch your b-roll once. Set aside any shot that is <b>shaky, blurry, too dark, too bright</b> or the wrong color. Those cost points in Video Production, even if they're short.</li>
+    <li>Find your <b>best shot</b>, the one with the strongest picture and nat sound. You'll open with it in Step 3.</li>
+  </ol>
+  <div class="rubric"><b>Rubric · Video production</b>Rule of thirds with head room and nose room. Every shot well lit, steady and in focus. Clear sequences, including WALLDO.</div>
+  <div class="check" data-answer="b">
+    <p class="q">Quick check: Your only shot of the robot's first run is a little shaky. What should you do?</p>
+    <div class="opts">
+      <button data-k="a">Use it anyway. It's the big moment.</button>
+      <button data-k="b">Use a steady shot instead, and let your VO or a bite tell that moment</button>
+      <button data-k="c">Ask the team to run the robot again so you can re-shoot it as the "first run"</button>
+    </div>
+    <div class="fb" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- 3 SPINE -->
+<section class="step" data-title="Step 3">
+  <div class="num">Step 3 of 8</div>
+  <h2>Build the spine: open, VO and bites</h2>
+  <p>Build the package around the audio. The words and nat sound set the story's shape, and the b-roll goes on top.</p>
+  <ol class="do">
+    <li><b>Open with your best b-roll and let the nat sound pop</b>, 1 to 3 seconds of real sound (a cheer, a buzzer, a laugh) before anyone talks.</li>
+    <li>Drag your <b>VO</b> from <span class="ui">Your media</span> onto the timeline right after the open.</li>
+    <li>No VO file? Select <span class="ui">Record &amp; create</span>, then <span class="ui">Audio</span>. Allow the microphone, click the red mic button, read your script, then click <span class="ui">Stop</span>. Choose <span class="ui">Retake recording</span> if you stumbled, or <span class="ui">Save and edit</span> to keep it.</li>
+    <li>Find each spot where a bite plays. Click the VO, park the playhead there and press <kbd>S</kbd> to split it. Drag the second half right to open a space.</li>
+    <li>Drag the <b>interview clip</b> onto the video track in that space. Trim it: park the playhead where the thought starts, press <kbd>S</kbd> and delete the extra. Do the same where the thought ends. Use bites from <b>at least 2 credible sources</b>.</li>
+    <li>Use the same split-and-delete move to cut gaps or flubs out of your VO.</li>
+    <li>Check your <b>gold coins</b>: a strong bite or nat sound pop at the start, in the middle and at the end.</li>
+  </ol>
+  <div class="rubric"><b>Rubric · Story structure + writing</b>Clear beginning, middle and end, with gold coins. The VO sounds like talking and doesn't repeat what the bites say.</div>
+  <div class="tip">Zoom in on the timeline (<kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>=</kbd>) to split exactly between words.</div>
+  <div class="check" data-answer="c">
+    <p class="q">Quick check: Which open fits the Feature Rubric best?</p>
+    <div class="opts">
+      <button data-k="a">Your VO starts on the first frame over a wide shot of the school</button>
+      <button data-k="b">A title card with the story's name, then the VO</button>
+      <button data-k="c">Your best shot, with 2 seconds of nat sound (the robot's motor whining, the team cheering), then the VO</button>
+    </div>
+    <div class="fb" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- 4 BROLL -->
+<section class="step" data-title="Step 4">
+  <div class="num">Step 4 of 8</div>
+  <h2>Cover the VO with b-roll</h2>
+  <ol class="do">
+    <li>Under each line of VO, drag in the b-roll that shows that line. <b>Say dog, see dog.</b> If the VO names a student soldering a wire, show that student soldering.</li>
+    <li>Cut long clips down with <kbd>S</kbd>: keep the action and delete the rest.</li>
+    <li>Build <b>sequences</b>: wide, then medium, then tight. Mix in <b>WALLDO</b> shots to keep it moving.</li>
+    <li>Use each shot <b>only once</b>.</li>
+    <li>Don't put two shots of the same person from the same angle back to back. That's a <b>jump cut</b>. Put a different shot between them.</li>
+    <li>Use <b>straight cuts</b> only. Skip the <span class="ui">Transitions</span> tab, effects, filters and music.</li>
+  </ol>
+  <div class="rubric"><b>Rubric · Visual storytelling</b>Start with the best b-roll. Nat sound pops. Say dog, see dog. A shot used twice drops you to a 2.</div>
+  <div class="check" data-answer="a">
+    <p class="q">Quick check: Your VO says, "Senior Maya Ortiz has rebuilt the arm three times." What goes under that line?</p>
+    <div class="opts">
+      <button data-k="a">Maya working on the arm: a wide of her at the bench, a medium, then a tight on her hands</button>
+      <button data-k="b">The wide of the robotics room you used in the open</button>
+      <button data-k="c">A graphic that says "3 times"</button>
+    </div>
+    <div class="fb" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- 5 J AND L CUTS -->
+<section class="step" data-title="Step 5">
+  <div class="num">Step 5 of 8</div>
+  <h2>Make J and L cuts</h2>
+  <p>A <b>J cut</b> lets you hear the next clip <i>before</i> you see it. An <b>L cut</b> lets the sound keep going <i>after</i> the picture changes. Both make your edit flow, and the rubric needs them for a 4 in Sequences &amp; Transitions.</p>
+  <ol class="do">
+    <li>Select an interview clip on the timeline. Open the <span class="ui">Audio</span> tab in the property panel on the right and click <span class="ui">Detach audio</span>. The sound moves to its own row below the video, so you can move picture and sound separately.</li>
+    <li><b>L cut:</b> drag a b-roll clip onto the track <b>above</b> the last 2 or 3 seconds of the interview. The b-roll covers the speaker's face, but their voice keeps going underneath. We see what they're talking about.</li>
+    <li><b>J cut:</b> on the next interview, drag the left edge of the <b>video</b> (not the audio) 1 or 2 seconds to the right. Then stretch the b-roll before it to fill the space. We hear the speaker just before we see them.</li>
+    <li>Play each cut back. The sound should flow under the picture change without a gap or a jump.</li>
+  </ol>
+  <figure>
+    <svg viewBox="0 0 640 230" role="img" aria-labelledby="jlT jlD">
+      <title id="jlT">L cut and J cut on a timeline</title>
+      <desc id="jlD">Top: an L cut. The coach's interview video ends and b-roll of practice begins, but the coach's audio keeps playing under the b-roll. Bottom: a J cut. B-roll of the gym plays with nat sound, and the student's interview audio starts before the picture cuts to the student.</desc>
+      <g font-family="Montserrat, sans-serif" font-size="11" font-weight="800" fill="currentColor">
+        <text x="0" y="14">L CUT · sound stays after the picture changes</text>
+        <text x="0" y="132">J CUT · sound comes in before the picture</text>
+      </g>
+      <g font-family="Lexend, sans-serif" font-size="11" fill="currentColor">
+        <text x="0" y="44">Video</text><text x="0" y="82">Audio</text>
+        <text x="0" y="162">Video</text><text x="0" y="200">Audio</text>
+      </g>
+      <g font-family="Lexend, sans-serif" font-size="10" fill="#fff">
+        <rect x="60" y="26" width="238" height="28" rx="4" fill="var(--track-bite)"/><text x="70" y="44">Interview: coach</text>
+        <rect x="300" y="26" width="300" height="28" rx="4" fill="var(--track-broll)"/><text x="310" y="44">B-roll: practice</text>
+        <rect x="60" y="64" width="358" height="28" rx="4" fill="var(--track-bite)"/><text x="70" y="82">Coach audio keeps going…</text>
+        <rect x="420" y="64" width="180" height="28" rx="4" fill="var(--track-nat)"/><text x="430" y="82">Practice nat sound</text>
+        <rect x="60" y="144" width="278" height="28" rx="4" fill="var(--track-broll)"/><text x="70" y="162">B-roll: gym</text>
+        <rect x="340" y="144" width="260" height="28" rx="4" fill="var(--track-bite)"/><text x="350" y="162">Interview: student</text>
+        <rect x="60" y="182" width="198" height="28" rx="4" fill="var(--track-nat)"/><text x="70" y="200">Gym nat sound</text>
+        <rect x="260" y="182" width="340" height="28" rx="4" fill="var(--track-bite)"/><text x="270" y="200">…student audio starts early</text>
+      </g>
+      <g stroke="currentColor" stroke-dasharray="4 3" opacity=".6">
+        <line x1="299" y1="20" x2="299" y2="98"/>
+        <line x1="339" y1="138" x2="339" y2="216"/>
+      </g>
+    </svg>
+    <figcaption>The dashed line is where the picture cuts. In both, the sound crosses that line.</figcaption>
+  </figure>
+  <div class="rubric"><b>Rubric · Sequences &amp; transitions</b>Clean cuts. J and L cuts. No jump cuts or flash frames. With no J or L cuts, the best you can earn is a 3.</div>
+  <div class="tip">In Clipchamp, a clip on a higher track covers the one below it. That's what makes the L cut work: the b-roll sits on top, and the interview's sound keeps playing.</div>
+  <div class="check" data-answer="b">
+    <p class="q">Quick check: You hear the marching band's drums for 2 seconds, then the picture cuts to the band. What kind of cut is that?</p>
+    <div class="opts">
+      <button data-k="a">An L cut</button>
+      <button data-k="b">A J cut</button>
+      <button data-k="c">A jump cut</button>
+    </div>
+    <div class="fb" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- 6 AUDIO -->
+<section class="step" data-title="Step 6">
+  <div class="num">Step 6 of 8</div>
+  <h2>Mix the audio</h2>
+  <ol class="do">
+    <li>Click a clip, then open the <span class="ui">Audio</span> tab in the property panel on the right.</li>
+    <li>Set your <b>VO</b> and <b>interviews</b> so the voices are clear and even. When you switch from VO to a bite, the loudness shouldn't jump. The volume slider goes up to 200%.</li>
+    <li>Drag the b-roll's volume down so its <b>nat sound</b> plays <i>under</i> your VO. <b>Never drag it to 0</b>, and don't detach and delete it.</li>
+    <li>Between VO lines, bring the nat sound <b>up</b> for a moment so it pops: the buzzer, the laugh, the cheer. Split the b-roll clip with <kbd>S</kbd> so that piece can have its own volume.</li>
+    <li>Interview has a hum or background buzz? Detach its audio, select the audio clip and switch <span class="ui">Noise suppression</span> to <span class="ui">On</span>. Listen before and after, and keep whichever sounds more natural.</li>
+    <li>Play the whole package with headphones. Crackle or fuzz means a clip is too loud, so lower it.</li>
+  </ol>
+  <div class="rubric"><b>Rubric · Audio production</b>Voices at −12 to −6 dB. Nat sound clear and in the right places. VO clear the whole way through.</div>
+  <div class="tip">Clipchamp's volume slider shows a percentage, not decibels. Set levels by ear in Clipchamp, then check the −12 to −6 dB peak the way your class does.</div>
+  <div class="check" data-answer="c">
+    <p class="q">Quick check: Your VO is easy to hear, but you muted all the b-roll to get it that way. What happens on the rubric?</p>
+    <div class="opts">
+      <button data-k="a">Nothing. Clear VO is what counts.</button>
+      <button data-k="b">You lose a point only if the producer notices</button>
+      <button data-k="c">Clean Nat Sound drops to a 1. Turn the nat sound back on, low under the VO.</button>
+    </div>
+    <div class="fb" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- 7 GRAPHICS -->
+<section class="step" data-title="Step 7">
+  <div class="num">Step 7 of 8</div>
+  <h2>Add lower thirds and fact graphics</h2>
+  <ol class="do">
+    <li>Open the <span class="ui">Text</span> tab in the left toolbar and choose a plain, readable style. Skip anything marked with a diamond. That's a premium feature, and it can block your export.</li>
+    <li>Drag the text onto the timeline on a track above the interview.</li>
+    <li>Start it <b>1 second</b> after the interview starts. Drag its trim handles so it holds for <b>4 seconds</b>.</li>
+    <li>With the text selected, open the <span class="ui">Text</span> tab in the property panel. Type the speaker's <b>name</b> and <b>title</b>, like <i>Robotics Team Captain</i> or <i>Engineering Teacher</i>.</li>
+    <li>In the preview, drag the text to the lower part of the frame, clear of the speaker's face.</li>
+    <li>Repeat for <b>every</b> speaker. If a key fact needs to be on screen, like a date, place or number, add a graphic for it the same way. Then check each spelling and number against your confirmed notes, letter by letter.</li>
+  </ol>
+  <div class="rubric"><b>Rubric · Graphics</b>Correct graphics for every interview and any other facts. One misspelling drops you to a 2. In Cougar News, a lower third starts 1 second in and holds 4 seconds.</div>
+  <div class="check" data-answer="c">
+    <p class="q">Quick check: The club's website spells the captain's name "Jaxon," but your notes say "Jackson." What do you do?</p>
+    <div class="opts">
+      <button data-k="a">Use the website. It's official.</button>
+      <button data-k="b">Use your notes. You wrote it down.</button>
+      <button data-k="c">Confirm the spelling with the captain before you turn it in</button>
+    </div>
+    <div class="fb" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- 8 CLEAN UP + EXPORT -->
+<section class="step" data-title="Step 8">
+  <div class="num">Step 8 of 8</div>
+  <h2>Clean up, export and turn it in</h2>
+  <ol class="do">
+    <li>Look for gaps on the timeline. Hover over a gap and click <span class="ui">Delete this gap</span>, or right-click a tiny gap and choose it there. A gap shows up as a black <b>flash frame</b>.</li>
+    <li>Watch the whole package once with the rubric next to you. Look for <b>flash frames</b>, <b>jump cuts</b> and repeated shots, especially at the start and end. Listen for every name: is each one said the way that person says it?</li>
+    <li>Remove anything marked with a diamond (premium) so the export isn't blocked.</li>
+    <li>Click <span class="ui">Export</span> in the top-right corner, choose <span class="ui">1080p</span> and wait for the progress bar to finish. The MP4 saves to your computer, usually in Downloads.</li>
+    <li>Watch the exported file once to make sure the audio and graphics came through.</li>
+    <li>Turn in your <b>draft on Friday</b>. Fix what your producer flags, then turn in your <b>final by Tuesday, end of class</b>, with every turn-in step complete.</li>
+  </ol>
+  <div class="rubric"><b>Rubric · Deadlines + respect</b>Draft on Friday and final by Tuesday, end of class. Full turn-in. Nothing embarrasses anyone.</div>
+  <div class="tip">If Clipchamp asks about gaps when you click Export, choose to remove them. Lost the file? Open the project again from your Clipchamp home page and export it again.</div>
+</section>
+
+<!-- 9 FINAL -->
+<section class="step" data-title="Final check">
+  <div class="num">Final check</div>
+  <h2>Score yourself before your producer does</h2>
+  <p>Check each box only if it's true of the package you're about to turn in.</p>
+  <div class="cl" data-store="final">
+    <label><input type="checkbox"><span><span class="row">Focus + facts</span>The 3-word focus is clear the whole way through, and every name, title and fact was checked against a credible source.</span></label>
+    <label><input type="checkbox"><span><span class="row">Sources + balance</span>Interviews with 2 or more credible sources, and the story shows more than one side.</span></label>
+    <label><input type="checkbox"><span><span class="row">Writing</span>The VO sounds like talking, uses active voice, answers who, what, when, where, why and how, and says every name right.</span></label>
+    <label><input type="checkbox"><span><span class="row">Structure</span>Clear beginning, middle and end, with gold coins spread through it.</span></label>
+    <label><input type="checkbox"><span><span class="row">Video</span>Rule of thirds, good light and white balance, steady and in focus, with wide, medium, tight and WALLDO sequences.</span></label>
+    <label><input type="checkbox"><span><span class="row">Audio</span>Voices are clear and even. Nat sound plays under the VO and pops where it should.</span></label>
+    <label><input type="checkbox"><span><span class="row">Editing</span>Opens on the best b-roll. Say dog, see dog. J and L cuts, no jump cuts, no flash frames, no shot used twice.</span></label>
+    <label><input type="checkbox"><span><span class="row">Graphics</span>A lower third for every interview, and a graphic for any other on-screen fact, all spelled right.</span></label>
+    <label><input type="checkbox"><span><span class="row">Deadlines + respect</span>Draft on Friday, final by Tuesday at the end of class, full turn-in, and nothing embarrasses anyone.</span></label>
+  </div>
+  <p style="margin-top:16px"><span class="score" id="finalScore">0 / 9</span> rows ready</p>
+  <p id="finalMsg" style="color:var(--muted);font-size:15px">Any unchecked row is your next fix.</p>
+</section>
+
+<div class="nav">
+  <button class="btn ghost" id="prevBtn" type="button">← Back</button>
+  <button class="btn" id="nextBtn" type="button">Start →</button>
+</div>
+</main>
+
+<footer>
+  <p><b>Sources.</b> Clipchamp steps are based on Microsoft's Clipchamp support articles, Oct. 2026. Clipchamp updates its layout often, so a button may move. Look for the same name nearby.</p>
+  <ul>
+    <li><a href="https://support.microsoft.com/en-us/clipchamp/how-to-add-voiceovers-to-videos" target="_blank" rel="noopener">How to add voiceovers to videos</a></li>
+    <li><a href="https://support.microsoft.com/en-us/clipchamp/how-to-split-or-cut-videos-and-audio-assets" target="_blank" rel="noopener">How to split or cut video and audio clips</a></li>
+    <li><a href="https://support.microsoft.com/en-us/clipchamp/how-to-mute-separate-and-delete-audio-from-video" target="_blank" rel="noopener">How to mute, separate and delete audio from video</a></li>
+    <li><a href="https://support.microsoft.com/en-us/clipchamp/how-to-change-the-volume-of-a-video-or-audio-clip" target="_blank" rel="noopener">How to change the volume of a video or audio clip</a></li>
+    <li><a href="https://support.microsoft.com/en-us/clipchamp/how-to-use-noise-suppression" target="_blank" rel="noopener">How to use noise suppression</a></li>
+    <li><a href="https://support.microsoft.com/en-us/clipchamp/how-to-add-text-and-titles-to-a-video" target="_blank" rel="noopener">How to add titles and text to a video</a></li>
+    <li><a href="https://support.microsoft.com/en-us/clipchamp/how-to-remove-gaps-on-the-timeline" target="_blank" rel="noopener">How to remove gaps from your video editing project</a></li>
+    <li><a href="https://support.microsoft.com/en-us/clipchamp/exporting-and-saving-a-video-in-clipchamp" target="_blank" rel="noopener">Exporting and saving a video in Clipchamp</a></li>
+    <li><a href="https://support.microsoft.com/en-us/clipchamp/keyboard-shortcuts-for-clipchamp" target="_blank" rel="noopener">Keyboard shortcuts for Clipchamp</a></li>
+  </ul>
+  <p>KHS Cougar News · 04 Story Packages</p>
+</footer>
+<script>
+(function(){
+  var KEY='kcn-cc-feature-pkg-v1';
+  function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return {}}}
+  function save(s){try{localStorage.setItem(KEY,JSON.stringify(s))}catch(e){}}
+  var state=load();
+
+  var root=document.documentElement;
+  if(state.theme) root.setAttribute('data-theme',state.theme);
+  document.getElementById('themeBtn').addEventListener('click',function(){
+    var dark = root.getAttribute('data-theme')==='dark' || (!root.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+    state.theme = dark ? 'light':'dark'; root.setAttribute('data-theme',state.theme); save(state);
+  });
+
+  var steps=[].slice.call(document.querySelectorAll('.step'));
+  var i=Math.min(state.step||0,steps.length-1);
+  var prev=document.getElementById('prevBtn'), next=document.getElementById('nextBtn');
+  function show(n){
+    steps.forEach(function(s,k){s.classList.toggle('active',k===n)});
+    document.getElementById('barFill').style.width=(n/(steps.length-1)*100)+'%';
+    document.getElementById('stepLabel').textContent=steps[n].dataset.title;
+    prev.disabled = n===0;
+    next.textContent = n===0 ? 'Start →' : (n===steps.length-1 ? 'Back to start ↺' : 'Next →');
+    state.step=n; save(state);
+  }
+  next.addEventListener('click',function(){ i = (i===steps.length-1)?0:i+1; show(i); window.scrollTo({top:0,behavior:'smooth'}); });
+  prev.addEventListener('click',function(){ if(i>0){i--; show(i); window.scrollTo({top:0,behavior:'smooth'});} });
+
+  var feedback={
+    '2':{a:'Not quite. A shaky shot costs you in the Focus/Steady row, even if it\'s the big moment.',b:'Right. Keep only steady shots, and let your words or a bite carry the moment.',c:'No. A re-created moment passed off as the real one isn\'t accurate.'},
+    '3':{a:'Not quite. The rubric wants you to start with your best b-roll and let the nat sound pop first.',b:'No. Title cards aren\'t part of a news package. Open on real pictures and sound.',c:'Right. Best b-roll first, nat sound pops, then the VO.'},
+    '4':{a:'Right. Say dog, see dog, in a wide, medium, tight sequence.',b:'Not quite. That shot is already in your open, and a shot used twice drops you to a 2.',c:'Not quite. The VO names Maya and what she does, so show her doing it.'},
+    '5':{a:'Not quite. In an L cut, the sound keeps going after the picture changes.',b:'Right. In a J cut, we hear the next clip before we see it.',c:'No. A jump cut is two shots of the same thing from the same angle back to back.'},
+    '6':{a:'Not quite. Clear VO is one row. Clean Nat Sound is its own row.',b:'No. Your producer and Fitz both score the nat sound.',c:'Right. With no nat sound, that row is a 1. Keep it low, not off.'},
+    '7':{a:'Not quite. Websites can be wrong. Names are confirmed with a person.',b:'Close, but the two don\'t match, so you need to confirm.',c:'Right. When sources disagree, ask the person.'}
+  };
+  document.querySelectorAll('.check').forEach(function(box){
+    var idx=String(steps.indexOf(box.closest('.step')));
+    var ans=box.dataset.answer, fb=box.querySelector('.fb');
+    box.querySelectorAll('button').forEach(function(b){
+      b.addEventListener('click',function(){
+        box.querySelectorAll('button').forEach(function(x){x.classList.remove('right','wrong')});
+        var ok=b.dataset.k===ans; b.classList.add(ok?'right':'wrong');
+        fb.textContent=(feedback[idx]||{})[b.dataset.k]||'';
+        fb.style.color= ok ? 'var(--ok)' : 'var(--bad)';
+      });
+    });
+  });
+
+  document.querySelectorAll('.cl').forEach(function(cl){
+    var name=cl.dataset.store, boxes=[].slice.call(cl.querySelectorAll('input'));
+    var saved=(state.lists||{})[name]||[];
+    boxes.forEach(function(b,k){ b.checked=!!saved[k]; b.addEventListener('change',update); });
+    function update(){
+      state.lists=state.lists||{}; state.lists[name]=boxes.map(function(b){return b.checked}); save(state);
+      if(name==='final'){
+        var n=boxes.filter(function(b){return b.checked}).length, t=boxes.length;
+        document.getElementById('finalScore').textContent=n+' / '+t;
+        document.getElementById('finalMsg').textContent = n===t ? 'Every row is ready. Turn it in.' : 'Any unchecked row is your next fix. Fix it before the deadline.';
+      }
+    }
+    update();
+  });
+
+  show(i);
+})();
+</script>
+</body>
+</html>

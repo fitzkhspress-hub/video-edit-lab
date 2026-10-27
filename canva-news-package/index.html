@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Edit a News Package in Canva</title>
+<meta name="description" content="KHS Cougar News micro-lesson: build a news story video package in Canva, step by step, checked against the News Story Rubric.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800;900&family=Lexend:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#c0262d; --red-dark:#7d1418; --ink:#1c1c1e; --muted:#5b5b60;
+  --bg:#f7f3f1; --card:#ffffff; --soft:#f9e9e8; --line:#e4dcda;
+  --ok:#1f7a4a; --ok-bg:#e5f4ec; --bad:#a3231f; --bad-bg:#fbe7e6;
+  --track-vo:#3a6fb0; --track-broll:#6b6b70; --track-bite:#c0262d; --track-nat:#2f8f5f; --track-lt:#d9902b;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#f1eeed; --muted:#b5afad; --bg:#141213; --card:#1f1c1d; --soft:#3a1f20; --line:#3a3536;
+    --ok:#6fd39c; --ok-bg:#17301f; --bad:#ff8a84; --bad-bg:#3a1a19;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#f1eeed; --muted:#b5afad; --bg:#141213; --card:#1f1c1d; --soft:#3a1f20; --line:#3a3536;
+  --ok:#6fd39c; --ok-bg:#17301f; --bad:#ff8a84; --bad-bg:#3a1a19;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:Lexend,system-ui,sans-serif;font-size:17px;line-height:1.55}
+header{background:linear-gradient(180deg,var(--red-dark),var(--red));color:#fff;padding:28px 16px 22px}
+.wrap{max-width:820px;margin:0 auto;padding:0 16px}
+header .wrap{padding:0}
+.kicker{font-family:Montserrat,sans-serif;font-weight:800;letter-spacing:.14em;font-size:12px;opacity:.9;text-transform:uppercase}
+h1{font-family:Montserrat,sans-serif;font-weight:900;font-size:clamp(28px,6vw,44px);line-height:1.05;margin:6px 0 8px;text-transform:uppercase}
+header p{margin:0;opacity:.92}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:3px 12px;font-size:13px}
+.progress{position:sticky;top:0;z-index:5;background:var(--card);border-bottom:1px solid var(--line)}
+.progress .wrap{display:flex;align-items:center;gap:12px;padding-top:10px;padding-bottom:10px}
+.bar{flex:1;height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+.bar span{display:block;height:100%;width:0;background:var(--red);transition:width .3s}
+.progress small{color:var(--muted);white-space:nowrap;font-size:13px}
+main{padding:22px 0 60px}
+.step{display:none;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 20px;box-shadow:0 1px 0 rgba(0,0,0,.03)}
+.step.active{display:block}
+.step h2{font-family:Montserrat,sans-serif;font-weight:800;font-size:22px;margin:4px 0 10px}
+.num{font-family:Montserrat,sans-serif;font-weight:900;color:var(--red);font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+ol.do{padding-left:22px;margin:10px 0}
+ol.do li{margin:6px 0}
+.ui{font-weight:600;background:var(--soft);border-radius:5px;padding:0 5px;white-space:nowrap}
+kbd{font-family:ui-monospace,Menlo,monospace;font-size:14px;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 6px;background:var(--bg)}
+.rubric{border-left:4px solid var(--red);background:var(--soft);padding:10px 14px;border-radius:0 10px 10px 0;margin:14px 0;font-size:15px}
+.rubric b{font-family:Montserrat,sans-serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:2px}
+.tip{border:1px dashed var(--line);border-radius:10px;padding:10px 14px;font-size:15px;color:var(--muted);margin:12px 0}
+.check{margin-top:18px;border-top:1px solid var(--line);padding-top:14px}
+.check p.q{font-weight:600;margin:0 0 8px}
+.opts{display:grid;gap:8px}
+.opts button{all:unset;cursor:pointer;border:1px solid var(--line);border-radius:10px;padding:10px 14px;background:var(--bg);font-size:15px}
+.opts button:hover,.opts button:focus-visible{border-color:var(--red);outline:none}
+.opts button.right{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+.opts button.wrong{background:var(--bad-bg);border-color:var(--bad);color:var(--bad)}
+.fb{margin-top:8px;font-size:15px;min-height:1em}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:22px}
+.btn{all:unset;cursor:pointer;font-family:Montserrat,sans-serif;font-weight:800;font-size:14px;letter-spacing:.04em;padding:11px 18px;border-radius:10px;background:var(--red);color:#fff;text-align:center}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn:focus-visible{outline:3px solid var(--track-lt);outline-offset:2px}
+.btn[disabled]{opacity:.4;pointer-events:none}
+ul.list{padding-left:20px}
+ul.list li{margin:5px 0}
+.cl label{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--line);font-size:15px}
+.cl input{width:20px;height:20px;accent-color:var(--red);margin-top:2px;flex:none}
+.cl .row{font-family:Montserrat,sans-serif;font-weight:800;font-size:11px;letter-spacing:.1em;color:var(--red);text-transform:uppercase;display:block}
+figure{margin:16px 0;overflow-x:auto}
+figure svg{width:100%;min-width:560px;height:auto;display:block}
+footer{margin-top:10px}
+figcaption{font-size:13px;color:var(--muted);margin-top:6px}
+.score{font-family:Montserrat,sans-serif;font-weight:900;font-size:28px;color:var(--red)}
+footer{color:var(--muted);font-size:13px;text-align:center;padding:0 16px 30px}
+.theme{all:unset;cursor:pointer;font-size:13px;color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:3px 10px;float:right}
+</style>
+</head>
+<body>
+<!-- edit-lab-link --><nav aria-label="Video Edit Lab" style="background:#5e0f12;padding:7px 16px"><a href="../index.html" style="color:#fff;font:600 13px Lexend,system-ui,sans-serif;text-decoration:none">&larr; Video Edit Lab</a></nav>
+<header>
+  <div class="wrap">
+    <button class="theme" id="themeBtn" type="button" aria-label="Toggle light or dark theme">◐ Theme</button>
+    <div class="kicker">KHS Cougar News · 04 Story Packages</div>
+    <h1>Edit a News Package in Canva</h1>
+    <p>Turn your script, VO, sound bite and b-roll into a finished news package, one step at a time.</p>
+    <div class="meta"><span class="chip">About 9 minutes</span><span class="chip">8 steps + final check</span><span class="chip">Built on the News Story Rubric</span></div>
+  </div>
+</header>
+
+<div class="progress"><div class="wrap"><div class="bar"><span id="barFill"></span></div><small id="stepLabel">Start</small></div></div>
+
+<main class="wrap">
+
+<!-- 0 START -->
+<section class="step" data-title="Start">
+  <div class="num">Before you open Canva</div>
+  <h2>Have these ready</h2>
+  <p>Editing goes fast when the reporting is done. Don't open Canva until you can check every box.</p>
+  <div class="cl" data-store="ready">
+    <label><input type="checkbox"><span><span class="row">Script</span>Script is approved, read out loud and timed to your target: <b>:30, :45 or :60</b>.</span></label>
+    <label><input type="checkbox"><span><span class="row">VO</span>Your voiceover is recorded as its own file, clear, with no room echo.</span></label>
+    <label><input type="checkbox"><span><span class="row">Sound bite</span>You know your bite's in-point and its <b>out-cue</b> (the last words), and it's <b>8 to 12 seconds</b>.</span></label>
+    <label><input type="checkbox"><span><span class="row">B-roll</span>You shot sequences of <b>wide, medium and tight</b>: steady, in focus, held, real action.</span></label>
+    <label><input type="checkbox"><span><span class="row">Facts</span>Your speaker's name and title are spelled right and confirmed with a person.</span></label>
+  </div>
+  <div class="tip">Use headphones for the whole edit. You can't judge audio through laptop speakers.</div>
+</section>
+
+<!-- 1 PROJECT -->
+<section class="step" data-title="Step 1">
+  <div class="num">Step 1 of 8</div>
+  <h2>Start a blank video project</h2>
+  <ol class="do">
+    <li>On the Canva home screen, select <span class="ui">Video</span>. If you don't see it, select <span class="ui">Create</span>, then <span class="ui">Videos</span>.</li>
+    <li>Choose a <b>blank</b> video design. Skip the templates. Your package should look like news, not a promo.</li>
+    <li>Check the size: it should be widescreen <b>16:9</b> (1920 × 1080) to match the broadcast.</li>
+    <li>Rename the project with your story's slug so your producer can find it.</li>
+  </ol>
+  <div class="tip">The panels you'll use are down the left side, including <span class="ui">Uploads</span> and <span class="ui">Text</span>. The timeline is across the bottom. If you see page thumbnails instead of a timeline, select the pencil icon on a page to switch to the <span class="ui">Video Timeline</span>. Canva updates often, so if a label looks a little different, look for the closest match.</div>
+</section>
+
+<!-- 2 UPLOAD -->
+<section class="step" data-title="Step 2">
+  <div class="num">Step 2 of 8</div>
+  <h2>Upload your own media</h2>
+  <ol class="do">
+    <li>Open <span class="ui">Uploads</span> and select <span class="ui">Upload files</span>. Upload from your device: your <b>VO</b>, your <b>sound bite clip</b> and your <b>b-roll</b> clips.</li>
+    <li>Wait until every upload finishes before you start building.</li>
+  </ol>
+  <div class="rubric"><b>Rubric · B-roll</b>Real action and faces, never staged. Stock video from Canva's library isn't your reporting, so don't use it.</div>
+  <div class="check" data-answer="b">
+    <p class="q">Quick check: Your b-roll is a little thin. What should you do?</p>
+    <div class="opts">
+      <button data-k="a">Fill the gap with a stock clip from Canva's library</button>
+      <button data-k="b">Go back and shoot more real b-roll, or rework the script to fit what you have</button>
+      <button data-k="c">Stage a quick shot of a friend pretending to work</button>
+    </div>
+    <div class="fb" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- 3 SPINE -->
+<section class="step" data-title="Step 3">
+  <div class="num">Step 3 of 8</div>
+  <h2>Build the spine: VO and sound bite first</h2>
+  <p>Build the package around the audio. The words decide the length, and the pictures go on top.</p>
+  <ol class="do">
+    <li>Drag your <b>VO</b> onto the timeline.</li>
+    <li>Wherever your script calls for the bite, drag the <b>sound bite clip</b> onto the timeline.</li>
+    <li><b>Trim</b> the bite: select the clip, then drag its left or right handle. For exact cuts, zoom the timeline by holding <kbd>Ctrl</kbd> (Windows) or <kbd>⌘</kbd> (Mac) and scrolling.</li>
+    <li>To <b>split</b> a clip, select it and put the playhead where you want the cut. Then press <kbd>S</kbd>, or use the <span class="ui">•••</span> (More) menu → <span class="ui">Split</span>.</li>
+    <li>To remove a section, split on both sides of it and delete the middle piece. Use this to cut gaps or flubs out of your VO.</li>
+  </ol>
+  <div class="rubric"><b>Rubric · Sound bite</b>One complete thought, 8 to 12 seconds, ending on a clean out-cue. Don't cut it off mid-thought.</div>
+  <div class="check" data-answer="c">
+    <p class="q">Quick check: Your bite runs 15 seconds. What do you do?</p>
+    <div class="opts">
+      <button data-k="a">Leave it. More of the speaker is better.</button>
+      <button data-k="b">Trim the end at the 12-second mark, even if they're mid-sentence</button>
+      <button data-k="c">Find the 8–12 second section that's one complete thought and trim to that clean out-cue</button>
+    </div>
+    <div class="fb" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- 4 BROLL -->
+<section class="step" data-title="Step 4">
+  <div class="num">Step 4 of 8</div>
+  <h2>Cover the VO with b-roll</h2>
+  <ol class="do">
+    <li>Drag b-roll onto the timeline under each line of VO. <b>Show what the words say.</b></li>
+    <li>Build <b>sequences</b>: a wide, then a medium, then a tight of the same action.</li>
+    <li>Trim each shot so it stays up <b>3 to 4 seconds</b>.</li>
+    <li>Use <b>straight cuts</b> only. When you hover between two clips, Canva offers <span class="ui">Add transition</span>. Skip it.</li>
+    <li><b>No music</b> from Canva's audio library, and don't use the same shot twice.</li>
+  </ol>
+  <figure>
+    <svg viewBox="0 0 640 210" role="img" aria-labelledby="tlT tlD">
+      <title id="tlT">Sample package timeline</title>
+      <desc id="tlD">B-roll covers the VO in wide, medium, tight sequences. The sound bite sits between VO sections with its own audio. Nat sound plays low under the b-roll. The lower third starts 1 second into the bite and holds 4 seconds.</desc>
+      <g font-family="Lexend, sans-serif" font-size="11" fill="currentColor">
+        <text x="0" y="40">Video</text><text x="0" y="82">VO</text><text x="0" y="124">Nat</text><text x="0" y="166">Text</text>
+      </g>
+      <!-- video track -->
+      <g font-family="Lexend, sans-serif" font-size="10" fill="#fff">
+        <rect x="60" y="22" width="52" height="28" rx="4" fill="var(--track-broll)"/><text x="80" y="40">W</text>
+        <rect x="114" y="22" width="52" height="28" rx="4" fill="var(--track-broll)"/><text x="135" y="40">M</text>
+        <rect x="168" y="22" width="52" height="28" rx="4" fill="var(--track-broll)"/><text x="190" y="40">T</text>
+        <rect x="222" y="22" width="150" height="28" rx="4" fill="var(--track-bite)"/><text x="268" y="40">Sound bite</text>
+        <rect x="374" y="22" width="52" height="28" rx="4" fill="var(--track-broll)"/><text x="394" y="40">W</text>
+        <rect x="428" y="22" width="52" height="28" rx="4" fill="var(--track-broll)"/><text x="449" y="40">M</text>
+        <rect x="482" y="22" width="52" height="28" rx="4" fill="var(--track-broll)"/><text x="504" y="40">T</text>
+        <rect x="536" y="22" width="52" height="28" rx="4" fill="var(--track-broll)"/><text x="556" y="40">W</text>
+        <!-- vo -->
+        <rect x="60" y="64" width="160" height="28" rx="4" fill="var(--track-vo)"/><text x="120" y="82">VO 1</text>
+        <rect x="374" y="64" width="214" height="28" rx="4" fill="var(--track-vo)"/><text x="465" y="82">VO 2</text>
+        <!-- nat -->
+        <rect x="60" y="112" width="160" height="16" rx="4" fill="var(--track-nat)" opacity=".75"/><text x="66" y="124">nat sound, low</text>
+        <rect x="374" y="112" width="214" height="16" rx="4" fill="var(--track-nat)" opacity=".75"/><text x="380" y="124">nat sound, low</text>
+        <!-- lower third: bite spans 222-372 ≈ 10s => 15px/s -->
+        <rect x="237" y="148" width="60" height="28" rx="4" fill="var(--track-lt)"/><text x="243" y="166">Lower 3rd</text>
+      </g>
+      <g font-family="Lexend, sans-serif" font-size="10" fill="currentColor">
+        <line x1="222" y1="188" x2="237" y2="188" stroke="currentColor"/><text x="200" y="202">1 sec in</text>
+        <line x1="237" y1="182" x2="297" y2="182" stroke="currentColor"/><text x="252" y="202">holds 4 sec</text>
+      </g>
+    </svg>
+    <figcaption>A sample layout. Your package will have different shots and lengths, but the pattern stays the same.</figcaption>
+  </figure>
+  <div class="rubric"><b>Rubric · Edit</b>Pictures match words. Shots stay up 3 to 4 seconds. Straight cuts, no music, no repeats.</div>
+</section>
+
+<!-- 5 AUDIO -->
+<section class="step" data-title="Step 5">
+  <div class="num">Step 5 of 8</div>
+  <h2>Mix the audio</h2>
+  <ol class="do">
+    <li>Select a clip, then select the <span class="ui">volume</span> icon in the toolbar above the editor. Use the slider or type a number. Audio tracks and video clips both have it.</li>
+    <li>Set your <b>VO</b> and <b>sound bite</b> so the voices are clear and even. When you switch from VO to bite, the loudness shouldn't jump.</li>
+    <li>Turn the <b>b-roll's nat sound down</b> so it plays <i>under</i> your VO. <b>Never set it to zero.</b> Nat sound makes the story feel real.</li>
+    <li>Skip <span class="ui">Balance all</span>. It can push nat sound up to the same level as the voices.</li>
+    <li>Play the whole package with headphones. Fix any spot that's too loud or too soft.</li>
+  </ol>
+  <div class="rubric"><b>Rubric · Audio</b>Voices are clear and peak at −12 to −6 dB. Nat sound plays under the b-roll, never muted.</div>
+  <div class="tip">Canva's volume slider isn't a dB meter. Get voices to −12 to −6 dB when you record by watching the camera's audio meter. In Canva, set levels by ear, then check the peaks the way your class checks audio before you turn in.</div>
+  <div class="check" data-answer="a">
+    <p class="q">Quick check: The nat sound under your VO is distracting. Best fix?</p>
+    <div class="opts">
+      <button data-k="a">Lower the b-roll clip's volume until it sits under the VO</button>
+      <button data-k="b">Mute the b-roll so only the VO plays</button>
+      <button data-k="c">Add music to cover it</button>
+    </div>
+    <div class="fb" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- 6 LOWER THIRD -->
+<section class="step" data-title="Step 6">
+  <div class="num">Step 6 of 8</div>
+  <h2>Add the lower third</h2>
+  <ol class="do">
+    <li>Move the playhead to <b>1 second</b> after your sound bite starts.</li>
+    <li>Open <span class="ui">Text</span>, add a text box and type the speaker's <b>name</b> on one line and their <b>title</b> on the next.</li>
+    <li>Drag it to the lower third of the frame, with nothing covering the speaker's face. Use a plain, readable style.</li>
+    <li>On the timeline, drag the text layer's edges so it holds for <b>4 seconds</b>. Text sits on its own track above the video. If you see page thumbnails instead of a timeline, switch to the <span class="ui">Video Timeline</span>.</li>
+    <li>Check the spelling against your confirmed notes, letter by letter.</li>
+  </ol>
+  <div class="rubric"><b>Rubric · Lower third</b>Spelled right, starts 1 second in and holds 4 seconds.</div>
+  <div class="check" data-answer="b">
+    <p class="q">Quick check: Your bite starts at 0:14. When should the lower third appear and disappear?</p>
+    <div class="opts">
+      <button data-k="a">On at 0:14, off at 0:18</button>
+      <button data-k="b">On at 0:15, off at 0:19</button>
+      <button data-k="c">On at 0:15, off when the bite ends</button>
+    </div>
+    <div class="fb" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- 7 TIMING -->
+<section class="step" data-title="Step 7">
+  <div class="num">Step 7 of 8</div>
+  <h2>Check the run time and watch it all the way through</h2>
+  <ol class="do">
+    <li>Look at the package's total length on the timeline. It should be <b>within 2 seconds</b> of your target.</li>
+    <li>If you're over, tighten VO gaps or shorten shots, but keep each shot at 3 seconds or more. If you're under, ask your producer before you add anything.</li>
+    <li>Look for any black frames or blank gaps between clips, especially at the very start and end.</li>
+    <li>Watch it once all the way through, start to finish, with the rubric next to you. One more careful watch is often worth points.</li>
+  </ol>
+  <div class="rubric"><b>Rubric · Timing</b>Within 2 seconds of the target length (:30 · :45 · :60).</div>
+  <div class="check" data-answer="c">
+    <p class="q">Quick check: Your target is :45 and your package runs :49. What does that cost you?</p>
+    <div class="opts">
+      <button data-k="a">Nothing. It's close enough.</button>
+      <button data-k="b">It drops to a 1 in the Timing row</button>
+      <button data-k="c">It drops to a 3. Being 3 to 5 seconds off target is a slip, so trim it.</button>
+    </div>
+    <div class="fb" aria-live="polite"></div>
+  </div>
+</section>
+
+<!-- 8 DOWNLOAD -->
+<section class="step" data-title="Step 8">
+  <div class="num">Step 8 of 8</div>
+  <h2>Download and turn it in</h2>
+  <ol class="do">
+    <li>Click <span class="ui">Share</span> in the top right, then <span class="ui">Download</span>.</li>
+    <li>For file type, choose <span class="ui">MP4 Video</span>.</li>
+    <li>For quality, choose <span class="ui">1080p</span>. Skip 4K: the file is bigger and harder to share. Then click <span class="ui">Download</span>.</li>
+    <li>Watch the downloaded file once to make sure the audio and lower third came through.</li>
+    <li>Turn it in with everything your rubric's turn-in list asks for: <b>lead-in, script, speaker, out-cue and run time</b>.</li>
+  </ol>
+  <div class="rubric"><b>Rubric · Deadlines</b>Drafts on time Tuesday. Final by <b>Wednesday, 7:30 a.m.</b> A late final is a zero, and you'll have to redo it.</div>
+  <div class="tip">Lost the download? Canva saves your design automatically. Open it again from <span class="ui">Projects</span> on the Canva home screen and download it again.</div>
+</section>
+
+<!-- 9 FINAL -->
+<section class="step" data-title="Final check">
+  <div class="num">Final check</div>
+  <h2>Score yourself before your producer does</h2>
+  <p>Check each box only if it's true of the package you're about to turn in.</p>
+  <div class="cl" data-store="final">
+    <label><input type="checkbox"><span><span class="row">Focus + facts</span>The focus is clear (who is doing what, and why students care), and every name, title, date and number was confirmed with a person.</span></label>
+    <label><input type="checkbox"><span><span class="row">Sound bite</span>8–12 seconds, a feeling or opinion (not a fact), ending on a clean out-cue.</span></label>
+    <label><input type="checkbox"><span><span class="row">Script</span>Short, active sentences with the source first, written to the video. The setup line doesn't repeat the bite.</span></label>
+    <label><input type="checkbox"><span><span class="row">Timing</span>Within 2 seconds of my target.</span></label>
+    <label><input type="checkbox"><span><span class="row">B-roll</span>Wide, medium and tight sequences. Steady, in focus, held, never staged.</span></label>
+    <label><input type="checkbox"><span><span class="row">Audio</span>Voices are clear and even. Nat sound is under the b-roll and never muted.</span></label>
+    <label><input type="checkbox"><span><span class="row">Edit + lower third</span>Pictures match words, shots run 3–4 sec, straight cuts, no music, no repeats. Lower third is spelled right, starts 1 sec in and holds 4 sec.</span></label>
+    <label><input type="checkbox"><span><span class="row">Deadlines</span>Turn-in is complete and on time.</span></label>
+  </div>
+  <p style="margin-top:16px"><span class="score" id="finalScore">0 / 8</span> rows ready</p>
+  <p id="finalMsg" style="color:var(--muted);font-size:15px">Any unchecked row is your next fix.</p>
+</section>
+
+<div class="nav">
+  <button class="btn ghost" id="prevBtn" type="button">← Back</button>
+  <button class="btn" id="nextBtn" type="button">Start →</button>
+</div>
+</main>
+
+<footer>KHS Cougar News · Canva steps checked against the Canva Help Center, Oct. 2026. Canva updates often, so menu labels may shift a little.</footer>
+
+<script>
+(function(){
+  var KEY='kcn-canva-news-pkg-v2';
+  function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return {}}}
+  function save(s){try{localStorage.setItem(KEY,JSON.stringify(s))}catch(e){}}
+  var state=load();
+
+  // theme
+  var root=document.documentElement;
+  if(state.theme) root.setAttribute('data-theme',state.theme);
+  document.getElementById('themeBtn').addEventListener('click',function(){
+    var dark = root.getAttribute('data-theme')==='dark' || (!root.getAttribute('data-theme') && matchMedia('(prefers-color-scheme: dark)').matches);
+    state.theme = dark ? 'light':'dark'; root.setAttribute('data-theme',state.theme); save(state);
+  });
+
+  // steps
+  var steps=[].slice.call(document.querySelectorAll('.step'));
+  var i=Math.min(state.step||0,steps.length-1);
+  var prev=document.getElementById('prevBtn'), next=document.getElementById('nextBtn');
+  function show(n){
+    steps.forEach(function(s,k){s.classList.toggle('active',k===n)});
+    document.getElementById('barFill').style.width=(n/(steps.length-1)*100)+'%';
+    document.getElementById('stepLabel').textContent=steps[n].dataset.title;
+    prev.disabled = n===0;
+    next.textContent = n===0 ? 'Start →' : (n===steps.length-1 ? 'Back to start ↺' : 'Next →');
+    state.step=n; save(state);
+  }
+  next.addEventListener('click',function(){ i = (i===steps.length-1)?0:i+1; show(i); window.scrollTo({top:0,behavior:'smooth'}); });
+  prev.addEventListener('click',function(){ if(i>0){i--; show(i); window.scrollTo({top:0,behavior:'smooth'});} });
+
+  // quick checks
+  var feedback={
+    '2':{a:'Not quite. Stock footage isn\'t your reporting, and the rubric wants real action.',b:'Right. Real b-roll only. Shoot more or fit the script to the video you have.',c:'No. Staged shots cost you points in the B-roll row.'},
+    '3':{a:'Not quite. Over 12 seconds costs you a point in the Sound bite row.',b:'Careful. Cutting someone off mid-thought drops you to a 2.',c:'Right. One complete thought, 8–12 seconds, with a clean out-cue.'},
+    '5':{a:'Right. Lower it, but keep it audible under the VO.',b:'Not quite. Muted nat sound costs points. Keep it low, not off.',c:'No. The rubric says no music.'},
+    '6':{a:'Close, but it starts 1 second in, not right at the start.',b:'Right. 1 second in (0:15) and holds 4 seconds (0:19).',c:'Not quite. It holds 4 seconds, not the whole bite.'},
+    '7':{a:'Not quite. Only within 2 seconds earns a 4.',b:'Too harsh. A 1 is more than 10 seconds off.',c:'Right. 4 seconds over is a 3. Trim it.'}
+  };
+  document.querySelectorAll('.check').forEach(function(box){
+    var idx=String(steps.indexOf(box.closest('.step')));
+    var ans=box.dataset.answer, fb=box.querySelector('.fb');
+    box.querySelectorAll('button').forEach(function(b){
+      b.addEventListener('click',function(){
+        box.querySelectorAll('button').forEach(function(x){x.classList.remove('right','wrong')});
+        var ok=b.dataset.k===ans; b.classList.add(ok?'right':'wrong');
+        fb.textContent=(feedback[idx]||{})[b.dataset.k]||'';
+        fb.style.color= ok ? 'var(--ok)' : 'var(--bad)';
+      });
+    });
+  });
+
+  // checklists
+  document.querySelectorAll('.cl').forEach(function(cl){
+    var name=cl.dataset.store, boxes=[].slice.call(cl.querySelectorAll('input'));
+    var saved=(state.lists||{})[name]||[];
+    boxes.forEach(function(b,k){ b.checked=!!saved[k]; b.addEventListener('change',update); });
+    function update(){
+      state.lists=state.lists||{}; state.lists[name]=boxes.map(function(b){return b.checked}); save(state);
+      if(name==='final'){
+        var n=boxes.filter(function(b){return b.checked}).length;
+        document.getElementById('finalScore').textContent=n+' / 8';
+        document.getElementById('finalMsg').textContent = n===8 ? 'Every row is ready. Turn it in.' : 'Any unchecked row is your next fix. Fix it before the deadline.';
+      }
+    }
+    update();
+  });
+
+  show(i);
+})();
+</script>
+</body>
+</html>

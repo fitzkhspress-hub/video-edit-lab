@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Video Edit Lab</title>
+<meta name="description" content="KHS Cougar News Video Edit Lab: pick your story type and editing software to open the matching step-by-step editing walkthrough.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800;900&family=Lexend:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#c0262d; --red-dark:#7d1418; --ink:#1c1c1e; --muted:#5b5b60;
+  --bg:#f7f3f1; --card:#ffffff; --soft:#f9e9e8; --line:#e4dcda; --focus:#d9902b;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#f1eeed; --muted:#b5afad; --bg:#141213; --card:#1f1c1d; --soft:#3a1f20; --line:#3a3536;
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#f1eeed; --muted:#b5afad; --bg:#141213; --card:#1f1c1d; --soft:#3a1f20; --line:#3a3536;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:Lexend,system-ui,sans-serif;font-size:17px;line-height:1.55;min-height:100vh}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px}
+header{background:linear-gradient(180deg,var(--red-dark),var(--red));color:#fff;padding:28px 0 26px}
+.kicker{font-family:Montserrat,sans-serif;font-weight:800;letter-spacing:.14em;font-size:12px;opacity:.9;text-transform:uppercase}
+h1{font-family:Montserrat,sans-serif;font-weight:900;font-size:clamp(32px,8vw,52px);line-height:1;margin:8px 0 10px;text-transform:uppercase}
+header p{margin:0;opacity:.92;max-width:34em}
+.theme{all:unset;cursor:pointer;font-size:13px;color:#fff;border:1px solid rgba(255,255,255,.4);border-radius:999px;padding:3px 10px;float:right}
+.theme:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+main.wrap{padding:24px 16px 48px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 20px}
+.field{margin:0 0 20px}
+.field:last-of-type{margin-bottom:0}
+label{display:flex;align-items:center;gap:10px;font-family:Montserrat,sans-serif;font-weight:800;font-size:15px;margin-bottom:8px}
+.n{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--red);color:#fff;font-size:13px;flex:none}
+.field.off .n{background:var(--line);color:var(--muted)}
+.field.off label{color:var(--muted)}
+.sel{position:relative}
+.sel::after{content:"";position:absolute;right:16px;top:50%;width:9px;height:9px;border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+select{appearance:none;-webkit-appearance:none;width:100%;font:inherit;font-size:17px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 44px 12px 14px;cursor:pointer}
+select:hover:not(:disabled){border-color:var(--red)}
+select:focus-visible{outline:3px solid var(--focus);outline-offset:2px;border-color:var(--red)}
+select:disabled{cursor:not-allowed;opacity:.55}
+.hint{font-size:14px;color:var(--muted);margin:8px 0 0;min-height:1.4em}
+.go{margin-top:22px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.btn{all:unset;cursor:pointer;font-family:Montserrat,sans-serif;font-weight:800;font-size:14px;letter-spacing:.04em;padding:12px 20px;border-radius:10px;background:var(--red);color:#fff;text-align:center}
+.btn:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+.btn[aria-disabled="true"]{opacity:.4;pointer-events:none}
+.status{font-size:14px;color:var(--muted)}
+h2,h3{font-family:Montserrat,sans-serif;font-weight:800;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin:32px 0 10px}
+h3{font-size:12px;color:var(--muted);margin:18px 0 8px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.grid a{display:block;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 14px;color:var(--ink);text-decoration:none}
+.grid a:hover,.grid a:focus-visible{border-color:var(--red);outline:none}
+.grid b{display:block;font-family:Montserrat,sans-serif;font-weight:800;font-size:15px}
+.grid span{font-size:13px;color:var(--muted)}
+@media (max-width:330px){.grid{grid-template-columns:1fr}}
+footer{font-size:13px;color:var(--muted);text-align:center;padding:0 16px 30px}
+@media (prefers-reduced-motion:no-preference){.btn{transition:opacity .2s}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <button class="theme" id="themeBtn" type="button" aria-label="Switch light or dark theme">◐ Theme</button>
+    <div class="kicker">KHS Cougar News · 04 Story Packages</div>
+    <h1>Video Edit Lab</h1>
+    <p>Pick the story you're cutting and the software you're cutting it in. We'll open the step-by-step walkthrough built for that combo.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <form class="card" id="picker" onsubmit="return false">
+    <div class="field" id="f1">
+      <label for="story"><span class="n">1</span>What kind of story are you editing?</label>
+      <div class="sel">
+        <select id="story">
+          <option value="" selected disabled>Choose a story type…</option>
+          <option value="mots">MOTS (Man on the Street)</option>
+          <option value="news">News Package</option>
+          <option value="sports">Sports Package</option>
+          <option value="feature">Feature Package</option>
+        </select>
+      </div>
+    </div>
+    <div class="field off" id="f2">
+      <label for="software"><span class="n">2</span>What software are you editing in?</label>
+      <div class="sel">
+        <select id="software" disabled>
+          <option value="" selected disabled>Choose your software…</option>
+          <option value="adobe-express">Adobe Express</option>
+          <option value="clipchamp">Clipchamp</option>
+          <option value="canva">Canva</option>
+          <option value="premiere">Adobe Premiere Pro</option>
+        </select>
+      </div>
+      <p class="hint" id="hint">Pick a story type first.</p>
+    </div>
+    <div class="go">
+      <a class="btn" id="goBtn" href="#" aria-disabled="true">Open walkthrough →</a>
+      <span class="status" id="status" aria-live="polite"></span>
+    </div>
+  </form>
+
+  <h2>Or jump straight to a walkthrough</h2>
+  <div id="all"></div>
+</main>
+<footer>Each walkthrough is built on its story's rubric. Your progress in a walkthrough saves on this device.</footer>
+
+<script>
+(function(){
+  var STORIES={mots:'MOTS',news:'News',sports:'Sports',feature:'Feature'};
+  var SOFT={'adobe-express':'Adobe Express','clipchamp':'Clipchamp','canva':'Canva','premiere':'Premiere Pro'};
+  var root=document.documentElement, KEY='videoEditLab';
+  function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return {}}}
+  function save(s){try{localStorage.setItem(KEY,JSON.stringify(s))}catch(e){}}
+  var state=load();
+  if(state.theme) root.setAttribute('data-theme',state.theme);
+  document.getElementById('themeBtn').addEventListener('click',function(){
+    var dark=root.getAttribute('data-theme')==='dark'||(!root.getAttribute('data-theme')&&matchMedia('(prefers-color-scheme: dark)').matches);
+    state.theme=dark?'light':'dark'; root.setAttribute('data-theme',state.theme); save(state);
+  });
+
+  function url(story,soft){return soft+'-'+story+'-package/index.html'}
+
+  var story=document.getElementById('story'), soft=document.getElementById('software'),
+      f2=document.getElementById('f2'), hint=document.getElementById('hint'),
+      go=document.getElementById('goBtn'), status=document.getElementById('status'), timer;
+
+  function update(auto){
+    clearTimeout(timer);
+    var s=story.value, w=soft.value;
+    soft.disabled=!s; f2.classList.toggle('off',!s);
+    hint.textContent=s?'All four programs have a '+STORIES[s]+' walkthrough.':'Pick a story type first.';
+    if(s&&w){
+      var u=url(s,w);
+      go.href=u; go.setAttribute('aria-disabled','false');
+      go.textContent='Open '+STORIES[s]+' in '+SOFT[w]+' →';
+      if(auto){status.textContent='Opening…'; timer=setTimeout(function(){location.href=u},500);}
+    }else{
+      go.href='#'; go.setAttribute('aria-disabled','true');
+      go.textContent='Open walkthrough →'; status.textContent='';
+    }
+  }
+  story.addEventListener('change',function(){update(false); if(!soft.value) soft.focus(); else update(true);});
+  soft.addEventListener('change',function(){update(true)});
+  // Coming back with the browser Back button: keep the picks but don't auto-jump again.
+  window.addEventListener('pageshow',function(){update(false)});
+
+  // Full menu of all 16 walkthroughs
+  var all=document.getElementById('all'), html='';
+  Object.keys(STORIES).forEach(function(s){
+    html+='<h3>'+STORIES[s]+(s==='mots'?' (Man on the Street)':' Package')+'</h3><div class="grid">';
+    Object.keys(SOFT).forEach(function(w){
+      html+='<a href="'+url(s,w)+'"><b>'+SOFT[w]+'</b><span>'+STORIES[s]+' walkthrough</span></a>';
+    });
+    html+='</div>';
+  });
+  all.innerHTML=html;
+})();
+</script>
+</body>
+</html>
